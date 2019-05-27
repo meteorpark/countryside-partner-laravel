@@ -38,16 +38,19 @@ class OpenApiController extends Controller
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'ctprvn' => 'required',
-            'fchkind' => 'required',
+            'CTPRVN' => 'required',
         ]);
         if ($validator->fails()) {
             throw new MeteoException(101, $validator->errors());
         }
 
+        if (empty($data['FCH_KND'])) {
+            $data['FCH_KND'] = null;
+        }
+
         $url = $this->openApiService->getMachineUrl(
-            $data['ctprvn'],
-            $data['fchkind']
+            $data['CTPRVN'],
+            $data['FCH_KND']
         );
         $response = $this->httpClient->get($url);
 
@@ -65,14 +68,14 @@ class OpenApiController extends Controller
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'cl_nm' => 'required',
+            'CL_NM' => 'required',
         ]);
         if ($validator->fails()) {
             throw new MeteoException(101, $validator->errors());
         }
 
         $url = $this->openApiService->getDictionaryUrl(
-            $data['cl_nm']
+            $data['CL_NM']
         );
 
         $response = $this->httpClient->get($url);

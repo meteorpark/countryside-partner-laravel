@@ -35,8 +35,6 @@ class Mentor extends Model implements JWTSubject
 
     public function diaries()
     {
-        // TODO : mentor 테이블의 프라이머리 키가 mentor_srl 인데 흠.... 이게 integer 인가요?
-
         return $this->hasMany(MentorDiary::class, 'mentor_srl');
     }
 

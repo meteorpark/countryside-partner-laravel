@@ -53,7 +53,7 @@ class MentorDiaryController
      * @param $mentor_srl
      * @return mixed
      */
-    public function mentorArticles($mentor_srl)
+    public function mentorDiaries($mentor_srl)
     {
         $contents = $this->diary->userDiary($mentor_srl);
 

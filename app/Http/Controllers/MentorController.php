@@ -46,11 +46,16 @@ class MentorController extends Controller
     }
 
     /**
-     * @param Mentor $mentor
+     * @param int $mentor_srl
      * @return Mentor
      */
-    protected function view(Mentor $mentor)
+    protected function view(int $mentor_srl)
     {
+
+        $mentor = Mentor::find($mentor_srl);
+
         return $mentor;
     }
+
+
 }

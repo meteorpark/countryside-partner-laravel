@@ -27,11 +27,10 @@ class MentorDiaryService implements DiaryInterface
      */
     public function create(Object $diaryData)
     {
-
         $this->mentorDiary->mentor_srl  = $diaryData->id;
         $this->mentorDiary->title       = $diaryData->title;
-        $this->mentorDiary->image       = $this->fileUploadService->contentsUpload($diaryData->image);
         $this->mentorDiary->contents    = $diaryData->contents;
+        $this->mentorDiary->image       = $this->fileUploadService->uploadContent($diaryData->image);
         $this->mentorDiary->save();
     }
 

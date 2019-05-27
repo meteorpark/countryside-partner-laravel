@@ -13,10 +13,7 @@ class OpenApiService
     private $api_key = null;
 
     /** @var string  */
-    private $api_endpoint = 'http://211.237.50.150:7080';
-
-    /** @var ?string */
-    private $api_call_url = null;
+    private $api_call_url = 'http://211.237.50.150:7080';
 
     /**
      * OpenApiService constructor.
@@ -24,26 +21,25 @@ class OpenApiService
     public function __construct()
     {
         $this->api_key = config('open_api.key');
-        $this->api_call_url = $this->api_endpoint."/openapi/".$this->api_key;
     }
 
     /**
      * @param string $ctprvn
-     * @param string $fchKind
+     * @param string $fch_knd
      * @return string
      */
-    public function getMachineUrl(string $ctprvn, string $fchKind)
+    public function getMachineUrl(string $ctprvn, string $fch_knd = null)
     {
         $queryParams = [
             'YEAR' => 2014,
             'CTPRVN' => $ctprvn,
         ];
-        if (!empty($fchKind)) {
-            $queryParams['FCH_KND'] = $fchKind;
+        if (!empty($fch_knd)) {
+            $queryParams['FCH_KND'] = $fch_knd;
         }
 
         return (string)Uri\Uri::createFromString($this->api_call_url)
-            ->withPath('/json/'.static::API_GRID_MACHINES.'/1/100')
+            ->withPath("/openapi/".$this->api_key.'/json/'.static::API_GRID_MACHINES.'/1/200')
             ->withQuery(Uri\build_query($queryParams));
     }
 
@@ -54,11 +50,11 @@ class OpenApiService
     public function getDictionaryUrl(string $clNm)
     {
         $queryParams = [
-            'cl_nm' => $clNm,
+            'CL_NM' => $clNm,
         ];
 
         return (string)Uri\Uri::createFromString($this->api_call_url)
-            ->withPath("/openapi/".$this->api_key.'/json/'.static::API_GRID_DICTIONARY.'/1/100')
+            ->withPath("/openapi/".$this->api_key.'/json/'.static::API_GRID_DICTIONARY.'/1/200')
             ->withQuery(Uri\build_query($queryParams));
     }
 }

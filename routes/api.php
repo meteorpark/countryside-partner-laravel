@@ -23,10 +23,11 @@ use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'jwt.auth.custom'], function () {
     Route::group(['prefix' => 'v1'], function () {
-        Route::post('mentors/diaries', array( // 멘토 - 영농일지 작성
-            'as' => 'mentors.diaries.store',
+        Route::post('mentors/{mentor_srl}/diary', array( //  멘토 - 영농일지 등록
+            'as' => 'mentor.diary.store',
             'uses' => 'MentorDiaryController@store'
         ));
+
     });
 });
 
@@ -56,10 +57,13 @@ Route::group(['prefix' => 'v1'], function () {
         'as' => 'mentors',
         'uses' => 'MentorController@index'
     ));
-    Route::get('mentors/{mentor_id}', array( // 멘토 - 프로필 조회
+    Route::get('mentors/{mentor_srl}', array( // 멘토 - 프로필 조회
         'as' => 'mentors.mentor',
         'uses' => 'MentorController@view'
     ));
+
+
+
 
     Route::get('diaries-mentors/articles', array( //  멘토 - 영농일지 전체 조회
         'as' => 'diaries-mentors.articles.index',
@@ -71,7 +75,7 @@ Route::group(['prefix' => 'v1'], function () {
     ));
     Route::get('diaries-mentors/{mentor_srl}/articles', array( //  선택 된 멘토의 영농일지
         'as' => 'mentors.diaries.mentor.articles.show',
-        'uses' => 'MentorDiaryController@mentorArticles'
+        'uses' => 'MentorDiaryController@mentorDiaries'
     ));
 
     Route::post('join/mentor', array( // 멘토 - 회원가입
