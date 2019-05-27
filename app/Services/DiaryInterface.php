@@ -7,6 +7,7 @@ namespace App\Services;
 interface DiaryInterface
 {
 
+
     /**
      * @param Object $formData
      * @return mixed

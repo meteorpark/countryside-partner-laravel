@@ -39,6 +39,11 @@ class MeteoException extends Exception
                 $this->exceptionInfo['message'] = '알 수 없는 회원 입니다.';
                 break;
 
+            case 101 :
+
+                $this->exceptionInfo['code'] = $code;
+                $this->exceptionInfo['message'] = '필수 파라미터가 누락되었습니다.';
+                break;
 
 
             case 700 :

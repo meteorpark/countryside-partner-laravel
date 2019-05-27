@@ -25,13 +25,12 @@ class MenteeController extends Controller
         $mentee = Mentee::create($data);
         $mentee->setAttribute('token', JWTAuth::fromUser($mentee));
 
-        return response()->success($mentee);
+        return $mentee;
     }
 
     protected function lists()
     {
-
         $mentees = Mentee::all();
-        return response()->success($mentees);
+        return $mentees;
     }
 }

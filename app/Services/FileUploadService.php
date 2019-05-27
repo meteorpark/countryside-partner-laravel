@@ -16,6 +16,10 @@ class FileUploadService
         'png',
     ];
 
+    /**
+     * @param UploadedFile|null $file
+     * @return string|null
+     */
     public function uploadProfile(?UploadedFile $file): ?string
     {
         if (is_null($file)) {
@@ -25,6 +29,10 @@ class FileUploadService
         return $this->uploadToStorage(self::STORAGE_TYPE_PROFILE, $file);
     }
 
+    /**
+     * @param UploadedFile|null $file
+     * @return string|null
+     */
     public function uploadContent(?UploadedFile $file): ?string
     {
         if (!is_null($file)) {
@@ -34,6 +42,11 @@ class FileUploadService
         return $this->uploadToStorage(self::STORAGE_TYPE_CONTENT, $file);
     }
 
+    /**
+     * @param string $storageType
+     * @param UploadedFile $file
+     * @return string|null
+     */
     public function uploadToStorage(string $storageType, UploadedFile $file): ?string
     {
         $filePath = null;
@@ -48,6 +61,10 @@ class FileUploadService
         return $filePath;
     }
 
+    /**
+     * @param string $extension
+     * @return bool
+     */
     public function arrowExtension(string $extension): bool
     {
         return collect($this->extensions)->search(strtolower($extension));

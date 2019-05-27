@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\MeteoException;
 use App\Services\OpenApiService;
 use GuzzleHttp\Client as HttpClient;
 use Illuminate\Http\Request;
+use Validator;
 
 class OpenApiController extends Controller
 {
@@ -25,39 +27,56 @@ class OpenApiController extends Controller
         $this->openApiService = $openApiService;
     }
 
+
     /**
      * @param Request $request
-     * @return bool|string
+     * @return mixed
+     * @throws MeteoException
      */
     protected function machines(Request $request)
     {
-        // TODO : validate 필요.
         $data = $request->all();
 
-        // TODO : 이부분 자체도 서비스에 올라 갈수 있는데 type 에 대한 명확한 요구사항이 필요합니다.
-        // 그리고 보통 json 만 하도록 하세요.
+        $validator = Validator::make($data, [
+            'ctprvn' => 'required',
+            'fchkind' => 'required',
+        ]);
+        if ($validator->fails()) {
+            throw new MeteoException(101, $validator->errors());
+        }
+
         $url = $this->openApiService->getMachineUrl(
-            $data['type'],
             $data['ctprvn'],
             $data['fchkind']
         );
         $response = $this->httpClient->get($url);
 
-        return json_decode($response->getBody());
+        return json_decode($response->getBody(), true);
     }
+
 
     /**
      * @param Request $request
-     * @return bool|string
+     * @return mixed
+     * @throws MeteoException
      */
     protected function dictionary(Request $request)
     {
-        // TODO : 위와 같이 변경합니다.
-        $params = "CL_NM=".urlencode($request->CL_NM);
+        $data = $request->all();
 
-        $url = $this->api_call_url."/".$request->type."/".self::API_GRID_DICTIONARY."/1/100?".$params;
+        $validator = Validator::make($data, [
+            'cl_nm' => 'required',
+        ]);
+        if ($validator->fails()) {
+            throw new MeteoException(101, $validator->errors());
+        }
 
-        return $this->callApiToJson($url);
+        $url = $this->openApiService->getDictionaryUrl(
+            $data['cl_nm']
+        );
+
+        $response = $this->httpClient->get($url);
+
+        return json_decode($response->getBody(), true);
     }
-
 }

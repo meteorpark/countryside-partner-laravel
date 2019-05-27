@@ -12,11 +12,18 @@ class MentorController extends Controller
     /** @var FileUploadService */
     private $fileUploadService;
 
+    /**
+     * MentorController constructor.
+     * @param FileUploadService $fileUploadService
+     */
     public function __construct(FileUploadService $fileUploadService)
     {
         $this->fileUploadService = $fileUploadService;
     }
 
+    /**
+     * @return Mentor[]|\Illuminate\Database\Eloquent\Collection
+     */
     protected function index()
     {
         $mentors = Mentor::all();
@@ -24,6 +31,10 @@ class MentorController extends Controller
         return $mentors;
     }
 
+    /**
+     * @param StoreMentorRequest $request
+     * @return mixed
+     */
     protected function store(StoreMentorRequest $request)
     {
         $data = $request->all();
@@ -34,6 +45,10 @@ class MentorController extends Controller
         return $mentor;
     }
 
+    /**
+     * @param Mentor $mentor
+     * @return Mentor
+     */
     protected function view(Mentor $mentor)
     {
         return $mentor;

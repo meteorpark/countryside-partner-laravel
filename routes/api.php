@@ -22,9 +22,7 @@ use Illuminate\Http\Request;
 
 
 Route::group(['middleware' => 'jwt.auth.custom'], function () {
-
     Route::group(['prefix' => 'v1'], function () {
-
         Route::post('mentors/diaries', array( // 멘토 - 영농일지 작성
             'as' => 'mentors.diaries.store',
             'uses' => 'MentorDiaryController@store'
@@ -95,5 +93,3 @@ Route::group(['prefix' => 'v1'], function () {
         'uses' => 'MentorController@index'
     ));
 });
-
-

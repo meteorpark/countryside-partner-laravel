@@ -9,6 +9,9 @@ class MainController extends Controller
 {
     const PER_PAGE = 8;
 
+    /**
+     * @return mixed
+     */
     public function index()
     {
         $mentors = Mentor::inRandomOrder()

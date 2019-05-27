@@ -25,7 +25,7 @@ class MentorDiaryService implements DiaryInterface
     /**
      * @param $diaryData
      */
-    public function create($diaryData)
+    public function create(Object $diaryData)
     {
 
         $this->mentorDiary->mentor_srl  = $diaryData->id;
@@ -39,7 +39,7 @@ class MentorDiaryService implements DiaryInterface
      * @param $diary_srl
      * @return MentorDiary|MentorDiary[]|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
      */
-    public function getDiary($diary_srl)
+    public function getDiary(int $diary_srl)
     {
 
         return $this->mentorDiary->with('mentor')->find($diary_srl);
@@ -58,7 +58,7 @@ class MentorDiaryService implements DiaryInterface
      * @param $mentor_srl
      * @return \Illuminate\Support\Collection
      */
-    public function userDiary($mentor_srl)
+    public function userDiary(int $mentor_srl)
     {
         // TODO: Implement userDiary() method.
         $mentorDiaries = $this->mentorDiary->where('mentor_srl', $mentor_srl)->orderBy('regdate', 'DESC')->paginate(15);
