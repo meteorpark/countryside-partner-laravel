@@ -26,6 +26,7 @@ class FileUploadService
             return null;
         }
 
+
         return $this->uploadToStorage(self::STORAGE_TYPE_PROFILE, $file);
     }
 
