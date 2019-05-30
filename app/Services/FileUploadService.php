@@ -36,6 +36,7 @@ class FileUploadService
     public function uploadContent(?UploadedFile $file): ?string
     {
         if (is_null($file)) {
+
             return null;
         }
 
