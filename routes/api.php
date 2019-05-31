@@ -23,10 +23,11 @@ use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'jwt.auth.custom'], function () {
     Route::group(['prefix' => 'v1'], function () {
-        Route::post('mentors/{mentor_srl}/diary', array( //  멘토 - 영농일지 등록
-            'as' => 'mentor.diary.store',
+        Route::post('mentors/{mentor_srl}/diaries', array( //  멘토 - 영농일지 등록
+            'as' => 'mentor.diaries.store',
             'uses' => 'MentorDiaryController@store'
         ));
+        Route::put('mentors/{mentor_srl}/diaries/{diary_srl}', 'MentorDiaryController@update'); //  멘토 - 영농일지 수정
 
     });
 });

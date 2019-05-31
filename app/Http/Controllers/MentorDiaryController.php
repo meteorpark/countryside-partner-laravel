@@ -4,10 +4,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMentorDiaryRequest;
+use App\Http\Requests\UpdateMentorDiaryRequest;
 use App\Services\DiaryInterface;
+use Illuminate\Http\Request;
 
+/**
+ * Class MentorDiaryController
+ * @package App\Http\Controllers
+ */
 class MentorDiaryController
 {
+    /**
+     * @var DiaryInterface|null
+     */
     private $diary = null;
 
     /**
@@ -19,6 +28,16 @@ class MentorDiaryController
         $this->diary = $diary;
     }
 
+
+    /**
+     * @param Request $request
+     * @param $mentor_srl
+     * @param $diary_srl
+     */
+    public function update(UpdateMentorDiaryRequest $request, $mentor_srl, $diary_srl)
+    {
+        $this->diary->update($request, $diary_srl);
+    }
 
     /**
      * @param StoreMentorDiaryRequest $request

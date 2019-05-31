@@ -19,3 +19,4 @@ composer.lock
 package-lock.json
 Envoy.blade.php
 phpunit.xml
+webpack.mix.js

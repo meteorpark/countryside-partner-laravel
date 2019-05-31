@@ -2,12 +2,22 @@
 
 
 namespace App\Services;
+
 use App\Models\MentorDiary;
 
+/**
+ * Class MentorDiaryService
+ * @package App\Services
+ */
 class MentorDiaryService implements DiaryInterface
 {
-
+    /**
+     * @var FileUploadService
+     */
     private $fileUploadService;
+    /**
+     * @var MentorDiary
+     */
     private $mentorDiary;
 
     /**
@@ -40,7 +50,6 @@ class MentorDiaryService implements DiaryInterface
      */
     public function getDiary(int $diary_srl)
     {
-
         return $this->mentorDiary->with('mentor')->find($diary_srl);
     }
 
@@ -49,7 +58,6 @@ class MentorDiaryService implements DiaryInterface
      */
     public function all()
     {
-
         return $this->mentorDiary->with('mentor')->orderBy('regdate', 'desc')->get();
     }
 
@@ -64,11 +72,8 @@ class MentorDiaryService implements DiaryInterface
         $collection = collect($mentorDiaries);
 
         $diaries = $collection->map(function ($item, $key) {
-
-            if($key === "data"){
-
-                for($i = 0; $i < count($item); $i++)
-                {
+            if ($key === "data") {
+                for ($i = 0; $i < count($item); $i++) {
                     $item[$i]['contents'] = str_limit($item[$i]['contents'], $limit = 200, $end = '...');
                 }
             }
@@ -77,5 +82,27 @@ class MentorDiaryService implements DiaryInterface
         });
 
         return $diaries;
+    }
+
+
+    /**
+     * @param Object $diaryData
+     * @param $diary_srl
+     * @return mixed|void
+     */
+    public function update(Object $diaryData, $diary_srl): void
+    {
+        $diary = $this->mentorDiary->find($diary_srl);
+        $diary->title = $diaryData->title;
+        $diary->contents = $diaryData->contents;
+
+        if (filter_var($diaryData->deleteImage, FILTER_VALIDATE_BOOLEAN) === true) {
+            $diary->image = "";
+        }
+
+        $image = $this->fileUploadService->uploadContent($diaryData->image);
+        empty($image) ? : $diary->image = $image;
+
+        $diary->save();
     }
 }
