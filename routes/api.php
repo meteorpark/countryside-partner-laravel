@@ -28,6 +28,7 @@ Route::group(['middleware' => 'jwt.auth.custom'], function () {
             'uses' => 'MentorDiaryController@store'
         ));
         Route::put('mentors/{mentor_srl}/diaries/{diary_srl}', 'MentorDiaryController@update'); //  멘토 - 영농일지 수정
+        Route::destroy('mentors/{mentor_srl}/diaries/{diary_srl}', 'MentorDiaryController@destroy'); //  멘토 - 영농일지 삭제
 
     });
 });

@@ -30,11 +30,19 @@ class MentorDiaryController
 
 
     /**
-     * @param Request $request
-     * @param $mentor_srl
-     * @param $diary_srl
+     * @param int $diary_srl
      */
-    public function update(UpdateMentorDiaryRequest $request, $mentor_srl, $diary_srl)
+    public function destroy(int $diary_srl): void
+    {
+        $this->diary->destroy($diary_srl);
+    }
+
+    /**
+     * @param UpdateMentorDiaryRequest $request
+     * @param int $mentor_srl
+     * @param int $diary_srl
+     */
+    public function update(UpdateMentorDiaryRequest $request, int $mentor_srl, int $diary_srl): void
     {
         $this->diary->update($request, $diary_srl);
     }
@@ -42,7 +50,7 @@ class MentorDiaryController
     /**
      * @param StoreMentorDiaryRequest $request
      */
-    public function store(StoreMentorDiaryRequest $request)
+    public function store(StoreMentorDiaryRequest $request): void
     {
         $this->diary->create($request);
     }

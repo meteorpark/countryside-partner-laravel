@@ -105,4 +105,9 @@ class MentorDiaryService implements DiaryInterface
 
         $diary->save();
     }
+
+    public function destroy(int $diary_srl)
+    {
+        // TODO: Implement destroy() method.
+    }
 }

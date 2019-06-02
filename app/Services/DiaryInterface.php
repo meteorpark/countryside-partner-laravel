@@ -11,7 +11,11 @@ namespace App\Services;
 interface DiaryInterface
 {
 
-
+    /**
+     * @param int $diary_srl
+     * @return mixed
+     */
+    public function destroy(int $diary_srl);
     /**
      * @param Object $formData
      * @return mixed
