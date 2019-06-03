@@ -3,7 +3,9 @@
 
 namespace App\Services;
 
+use App\Exceptions\MeteoException;
 use App\Models\MentorDiary;
+use App\Traits\JwtTrait;
 
 /**
  * Class MentorDiaryService
@@ -11,6 +13,8 @@ use App\Models\MentorDiary;
  */
 class MentorDiaryService implements DiaryInterface
 {
+
+    use JwtTrait;
     /**
      * @var FileUploadService
      */
@@ -44,13 +48,23 @@ class MentorDiaryService implements DiaryInterface
         $this->mentorDiary->save();
     }
 
+
     /**
-     * @param $diary_srl
-     * @return MentorDiary|MentorDiary[]|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     * @param int $diary_srl
+     * @return MentorDiary|MentorDiary[]|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed|null
+     * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
     public function getDiary(int $diary_srl)
     {
-        return $this->mentorDiary->with('mentor')->find($diary_srl);
+        $diary = $this->mentorDiary->with('mentor')->find($diary_srl);
+
+        $diary->setAttribute('is_owner', false);
+
+        if ($this->useJwt() === $diary->mentor_srl) {
+            $diary->setAttribute('is_owner', true);
+        }
+
+        return $diary;
     }
 
     /**
@@ -106,8 +120,16 @@ class MentorDiaryService implements DiaryInterface
         $diary->save();
     }
 
-    public function destroy(int $diary_srl)
+    /**
+     * @param int $diary_srl
+     * @param int $mentor_srl
+     */
+    public function destroy(int $diary_srl, int $mentor_srl): void
     {
-        // TODO: Implement destroy() method.
+        $diary = MentorDiary::find($diary_srl);
+
+        if ($diary) {
+            $diary->delete();
+        }
     }
 }

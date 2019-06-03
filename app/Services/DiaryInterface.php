@@ -11,11 +11,13 @@ namespace App\Services;
 interface DiaryInterface
 {
 
+
     /**
      * @param int $diary_srl
+     * @param int $user_id
      * @return mixed
      */
-    public function destroy(int $diary_srl);
+    public function destroy(int $diary_srl, int $user_id): void;
     /**
      * @param Object $formData
      * @return mixed
@@ -45,5 +47,5 @@ interface DiaryInterface
      * @param $diary_srl
      * @return mixed
      */
-    public function update(Object $formData, $diary_srl);
+    public function update(Object $formData, $diary_srl): void;
 }

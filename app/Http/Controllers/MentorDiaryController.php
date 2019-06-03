@@ -30,11 +30,12 @@ class MentorDiaryController
 
 
     /**
-     * @param int $diary_srl
+     * @param Request $request
      */
-    public function destroy(int $diary_srl): void
+    public function destroy(Request $request): void
     {
-        $this->diary->destroy($diary_srl);
+
+        $this->diary->destroy($request->diary_srl, $request->id);
     }
 
     /**

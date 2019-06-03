@@ -26,9 +26,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
     public function boot()
     {
         // 토큰 실패
-        Response::macro('custom_error_token', function($code, $message)
-        {
-
+        Response::macro('custom_error_token', function ($code, $message) {
             $response = [
 
                 'stat' => 0,
@@ -39,16 +37,13 @@ class ResponseMacroServiceProvider extends ServiceProvider
                 ],
             ];
 
-            return Response()->json( $response );
+            return Response()->json($response);
         });
 
 
 
         // 실패일때
-        Response::macro('error', function(MeteoException $e)
-        {
-
-            $request = app(\Illuminate\Http\Request::class);
+        Response::macro('error', function (MeteoException $e) {
 
             $response = [
 
@@ -60,28 +55,21 @@ class ResponseMacroServiceProvider extends ServiceProvider
                 ],
             ];
 
-            if(!empty($request->get('callback'))){
-
-                return Response()->json($response)->setCallback( $request->get('callback') );
-
-            }else{
-
-                return Response()->json($response);
-            }
+            return Response()->json($response);
         });
 
         // 성공일때
         Response::macro('success', function ($result = null) {
-
             $response = [
                 'stat' => 0,
                 'response' => new \stdClass(),
             ];
 
-            if(!empty($result)) $response['response'] = $result;
+            if (!empty($result)) {
+                $response['response'] = $result;
+            }
 
             return Response()->json($response);
-
         });
     }
 }

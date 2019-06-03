@@ -17,7 +17,7 @@ class Mentee extends Model implements JWTSubject
 //    protected $fillable = ['name']; // name 를 대량 할당이 가능하다.
 //  guarded 혹은 fillable 둘 중에 하나만 써야 함.
 
-    protected $hidden = ['password', 'phone'];
+    protected $hidden = ['password', 'phone', 'regdate'];
 
 
     public function setPasswordAttribute($value){
