@@ -13,9 +13,16 @@ use Tymon\JWTAuth\Facades\JWTAuth;
  * Class LoginContoroller
  * @package App\Http\Controllers
  */
-class LoginContoroller extends Controller
+class LoginController extends Controller
 {
 
+    /**
+     * @return mixed
+     */
+    public function auth()
+    {
+        return response()->success();
+    }
 
     /**
      * @param Request $request

@@ -23,6 +23,8 @@ use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'jwt.auth.custom'], function () {
     Route::group(['prefix' => 'v1'], function () {
+        Route::get('auth', 'LoginController@auth'); // 인증 확인
+
         Route::post('mentors/{mentor_srl}/diaries', array( //  멘토 - 영농일지 등록
             'as' => 'mentor.diaries.store',
             'uses' => 'MentorDiaryController@store'
@@ -48,6 +50,8 @@ Route::get('openapi/dictionary', array( //
     'as' => 'openapi.dictionary',
     'uses' => 'OpenApiController@dictionary'
 ));
+
+
 
 Route::group(['prefix' => 'v1'], function () {
     Route::get('main', array(
@@ -78,7 +82,7 @@ Route::group(['prefix' => 'v1'], function () {
         'as' => 'mentors.diaries.mentor.articles.show',
         'uses' => 'MentorDiaryController@mentorDiaries'
     ));
-    Route::post('login', 'LoginContoroller@login'); // 로그인
+    Route::post('login', 'LoginController@login'); // 로그인
     Route::post('join/mentor', array( // 멘토 - 회원가입
         'as' => 'join.store',
         'uses' => 'MentorController@store'
