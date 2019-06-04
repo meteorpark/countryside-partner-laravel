@@ -29,7 +29,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
         Response::macro('custom_error_token', function ($code, $message) {
             $response = [
 
-                'stat' => 0,
+                'stat' => 1,
                 'error' => [
 
                     'code' => $code,
@@ -47,7 +47,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
 
             $response = [
 
-                'stat' => 0,
+                'stat' => 1,
                 'error' => [
 
                     'code' => $e->getCode(),
