@@ -58,14 +58,11 @@ Route::group(['prefix' => 'v1'], function () {
         'as' => 'main',
         'uses' => 'MainController@index'
     ));
-    Route::get('mentors', array( // 멘토 - 전체 회원 조회
-        'as' => 'mentors',
-        'uses' => 'MentorController@index'
-    ));
-    Route::get('mentors/{mentor_srl}', array( // 멘토 - 프로필 조회
-        'as' => 'mentors.mentor',
-        'uses' => 'MentorController@view'
-    ));
+    Route::get('mentors', 'MentorController@index'); // 멘토 전체 조회
+    Route::get('mentors/{mentor_srl}', 'MentorController@view'); // 멘토 프로필 조회
+
+    Route::get('mentees', 'MenteeController@index'); // 멘티 전체 조회
+    Route::get('mentees/{mentee_srl}', 'MenteeController@view'); // 멘티 프로필 조회
 
 
 

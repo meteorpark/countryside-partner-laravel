@@ -5,11 +5,24 @@ namespace App\Services;
 use Illuminate\Http\UploadedFile;
 use Storage;
 
+/**
+ * Class FileUploadService
+ * @package App\Services
+ */
 class FileUploadService
 {
+    /**
+     *
+     */
     const STORAGE_TYPE_PROFILE = "profile";
+    /**
+     *
+     */
     const STORAGE_TYPE_CONTENT = "content";
 
+    /**
+     * @var array
+     */
     private $extensions = [
         'jpg',
         'jpeg',
