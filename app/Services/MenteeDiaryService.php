@@ -88,6 +88,8 @@ class MenteeDiaryService implements DiaryInterface
         $diaries = $collection->map(function ($item, $key) {
             if ($key === "data") {
                 for ($i = 0; $i < count($item); $i++) {
+                    $item[$i]['user_type'] = 'mentee';
+                    $item[$i]['srl'] = $item[$i]['mentee_srl'];
                     $item[$i]['contents'] = str_limit($item[$i]['contents'], $limit = 200, $end = '...');
                 }
             }

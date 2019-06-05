@@ -89,12 +89,16 @@ class MentorDiaryService implements DiaryInterface
         $diaries = $collection->map(function ($item, $key) {
             if ($key === "data") {
                 for ($i = 0; $i < count($item); $i++) {
+
+                    $item[$i]['user_type'] = 'mentor';
+                    $item[$i]['srl'] = $item[$i]['mentor_srl'];
                     $item[$i]['contents'] = str_limit($item[$i]['contents'], $limit = 200, $end = '...');
                 }
             }
 
             return $item;
         });
+
 
         return $diaries;
     }
