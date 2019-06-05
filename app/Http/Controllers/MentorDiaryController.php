@@ -83,7 +83,6 @@ class MentorDiaryController
     public function mentorDiaries($mentor_srl)
     {
         $contents = $this->diary->userDiary($mentor_srl);
-
         return $contents;
     }
 }

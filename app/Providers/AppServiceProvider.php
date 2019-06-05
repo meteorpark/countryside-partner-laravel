@@ -10,12 +10,6 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
 
-
-    public $bindings = [
-
-        DiaryInterface::class => MentorDiaryService::class,
-        DiaryInterface::class => MenteeDiaryService::class,
-    ];
     /**
      * Register any application services.
      *
@@ -27,6 +21,9 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment() !== 'production') {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
+
+
+
 
 
         $this->app->register(ResponseMacroServiceProvider::class);

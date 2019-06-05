@@ -81,8 +81,9 @@ class MenteeDiaryService implements DiaryInterface
      */
     public function userDiary(int $mentee_srl)
     {
-        $mentorDiaries = $this->menteeDiary->where('mentee_srl', $mentee_srl)->orderBy('regdate', 'DESC')->paginate(15);
-        $collection = collect($mentorDiaries);
+        
+        $menteeDiaries = $this->menteeDiary->where('mentee_srl', $mentee_srl)->orderBy('regdate', 'DESC')->paginate(15);
+        $collection = collect($menteeDiaries);
 
         $diaries = $collection->map(function ($item, $key) {
             if ($key === "data") {

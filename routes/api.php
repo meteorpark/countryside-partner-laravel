@@ -65,20 +65,17 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::get('mentors', 'MentorController@index'); // 멘토 전체 조회
     Route::get('mentors/{mentor_srl}', 'MentorController@view'); // 멘토 프로필 조회
+    Route::get('diaries-mentors/{mentor_srl}/articles', 'MentorDiaryController@mentorDiaries'); // {NAME}멘토의 영농일지
+    Route::get('diaries-mentors/articles/{diary_id}', 'MentorDiaryController@show');//  멘토 - 영농일지 선택 조회
 
-    Route::get('diaries-mentors/{mentor_srl}/articles', array( // {NAME}멘토의 영농일지
-        'as' => 'mentors.diaries.mentor.articles.show',
-        'uses' => 'MentorDiaryController@mentorDiaries'
-    ));
+
 
     Route::get('diaries-mentors/articles', array( //  멘토 - 영농일지 전체 조회
         'as' => 'diaries-mentors.articles.index',
         'uses' => 'MentorDiaryController@index'
     ));
-    Route::get('diaries-mentors/articles/{diary_id}', array( //  멘토 - 영농일지 선택 조회
-        'as' => 'diaries-mentors.articles.show',
-        'uses' => 'MentorDiaryController@show'
-    ));
+
+
 
     Route::post('login', 'LoginController@login'); // 로그인
     Route::post('join/mentor', array( // 멘토 - 회원가입
