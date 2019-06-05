@@ -2,15 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * Class MentorDiary
- * @package App\Models
- */
-class MentorDiary extends Model
+class MenteeDiary extends Model
 {
     use SoftDeletes;
     /**
@@ -26,7 +22,7 @@ class MentorDiary extends Model
     /**
      * @var string
      */
-    protected $table = "cp_mentors_diary";
+    protected $table = "cp_mentees_diary";
     /**
      * @var string
      */
@@ -41,15 +37,6 @@ class MentorDiary extends Model
      * @var array
      */
     protected $hidden = ['deleted_at'];
-
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function mentor()
-    {
-        return $this->belongsTo(Mentor::class, 'mentor_srl');
-    }
 
 
     /**

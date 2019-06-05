@@ -58,14 +58,18 @@ Route::group(['prefix' => 'v1'], function () {
         'as' => 'main',
         'uses' => 'MainController@index'
     ));
-    Route::get('mentors', 'MentorController@index'); // 멘토 전체 조회
-    Route::get('mentors/{mentor_srl}', 'MentorController@view'); // 멘토 프로필 조회
 
     Route::get('mentees', 'MenteeController@index'); // 멘티 전체 조회
     Route::get('mentees/{mentee_srl}', 'MenteeController@view'); // 멘티 프로필 조회
+    Route::get('mentees/{mentee_srl}/diaries', 'MenteeDiaryController@menteeDiaries'); // {NAME}멘티의 영농일지
 
+    Route::get('mentors', 'MentorController@index'); // 멘토 전체 조회
+    Route::get('mentors/{mentor_srl}', 'MentorController@view'); // 멘토 프로필 조회
 
-
+    Route::get('diaries-mentors/{mentor_srl}/articles', array( // {NAME}멘토의 영농일지
+        'as' => 'mentors.diaries.mentor.articles.show',
+        'uses' => 'MentorDiaryController@mentorDiaries'
+    ));
 
     Route::get('diaries-mentors/articles', array( //  멘토 - 영농일지 전체 조회
         'as' => 'diaries-mentors.articles.index',
@@ -75,10 +79,7 @@ Route::group(['prefix' => 'v1'], function () {
         'as' => 'diaries-mentors.articles.show',
         'uses' => 'MentorDiaryController@show'
     ));
-    Route::get('diaries-mentors/{mentor_srl}/articles', array( //  {NAME}멘토의 영농일지
-        'as' => 'mentors.diaries.mentor.articles.show',
-        'uses' => 'MentorDiaryController@mentorDiaries'
-    ));
+
     Route::post('login', 'LoginController@login'); // 로그인
     Route::post('join/mentor', array( // 멘토 - 회원가입
         'as' => 'join.store',

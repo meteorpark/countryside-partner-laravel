@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\DiaryInterface;
+use App\Services\MenteeDiaryService;
 use App\Services\MentorDiaryService;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,7 +13,8 @@ class AppServiceProvider extends ServiceProvider
 
     public $bindings = [
 
-        DiaryInterface::class       => MentorDiaryService::class,
+        DiaryInterface::class => MentorDiaryService::class,
+        DiaryInterface::class => MenteeDiaryService::class,
     ];
     /**
      * Register any application services.
