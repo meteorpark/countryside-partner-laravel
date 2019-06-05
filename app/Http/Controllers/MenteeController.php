@@ -57,6 +57,8 @@ class MenteeController extends Controller
     {
 
         $mentee = Mentee::find($mentee_srl);
+        $mentee->setAttribute('srl', $mentee->mentee_srl);
+        $mentee->setAttribute('user_type', 'mentee');
 
         return $mentee;
     }

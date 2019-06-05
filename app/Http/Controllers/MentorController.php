@@ -53,6 +53,8 @@ class MentorController extends Controller
     {
 
         $mentor = Mentor::find($mentor_srl);
+        $mentor->setAttribute('srl', $mentor->mentor_srl);
+        $mentor->setAttribute('user_type', 'mentor');
 
         return $mentor;
     }
