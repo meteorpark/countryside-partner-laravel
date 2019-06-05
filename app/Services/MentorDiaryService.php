@@ -56,6 +56,7 @@ class MentorDiaryService implements DiaryInterface
      */
     public function getDiary(int $diary_srl)
     {
+
         $diary = $this->mentorDiary->with('mentor')->find($diary_srl);
 
         $diary->setAttribute('is_owner', false);

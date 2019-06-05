@@ -78,7 +78,7 @@ Route::group(['prefix' => 'v1'], function () {
         'as' => 'diaries-mentors.articles.show',
         'uses' => 'MentorDiaryController@show'
     ));
-    Route::get('diaries-mentors/{mentor_srl}/articles', array( //  선택 된 멘토의 영농일지
+    Route::get('diaries-mentors/{mentor_srl}/articles', array( //  {NAME}멘토의 영농일지
         'as' => 'mentors.diaries.mentor.articles.show',
         'uses' => 'MentorDiaryController@mentorDiaries'
     ));
