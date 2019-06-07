@@ -72,8 +72,6 @@ class MenteeDiaryService implements DiaryInterface
 
         $diary = $this->menteeDiary->with('mentee')->find($diary_srl);
 
-        $diary->setAttribute('is_owner', false);
-
         if ($this->useJwt() === $diary->mentee_srl) {
             $diary->setAttribute('is_owner', true);
         }
