@@ -50,12 +50,16 @@ class MenteeDiaryService implements DiaryInterface
     }
 
     /**
-     * @param Object $formData
+     * @param Object $diaryData
      * @return mixed
      */
-    public function create(Object $formData)
+    public function create(Object $diaryData)
     {
-        // TODO: Implement create() method.
+        $this->menteeDiary->mentee_srl  = $diaryData->id;
+        $this->menteeDiary->title       = $diaryData->title;
+        $this->menteeDiary->contents    = $diaryData->contents;
+        $this->menteeDiary->image       = $this->fileUploadService->uploadContent($diaryData->image);
+        $this->menteeDiary->save();
     }
 
     /**
