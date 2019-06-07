@@ -61,11 +61,12 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('mentees', 'MenteeController@index'); // 멘티 전체 조회
     Route::get('mentees/{mentee_srl}', 'MenteeController@view'); // 멘티 프로필 조회
     Route::get('mentees/{mentee_srl}/diaries', 'MenteeDiaryController@menteeDiaries'); // {NAME}멘티의 영농일지
+    Route::get('mentees/{mentee_srl}/diaries/{diary_id}', 'MenteeDiaryController@show');//  멘티 - 선택된 영농일지 조회
 
     Route::get('mentors', 'MentorController@index'); // 멘토 전체 조회
     Route::get('mentors/{mentor_srl}', 'MentorController@view'); // 멘토 프로필 조회
     Route::get('diaries-mentors/{mentor_srl}/articles', 'MentorDiaryController@mentorDiaries'); // {NAME}멘토의 영농일지
-    Route::get('diaries-mentors/articles/{diary_id}', 'MentorDiaryController@show');//  멘토 - 영농일지 선택 조회
+    Route::get('diaries-mentors/articles/{diary_id}', 'MentorDiaryController@show');//  멘토 - 선택된 영농일지 조회
 
 
 

@@ -62,13 +62,23 @@ class MenteeDiaryService implements DiaryInterface
         $this->menteeDiary->save();
     }
 
+
     /**
      * @param int $diary_srl
      * @return mixed
      */
     public function getDiary(int $diary_srl)
     {
-        // TODO: Implement getDiary() method.
+
+        $diary = $this->menteeDiary->with('mentee')->find($diary_srl);
+
+        $diary->setAttribute('is_owner', false);
+
+        if ($this->useJwt() === $diary->mentee_srl) {
+            $diary->setAttribute('is_owner', true);
+        }
+
+        return $diary;
     }
 
     /**

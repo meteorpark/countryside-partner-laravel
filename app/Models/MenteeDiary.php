@@ -49,4 +49,9 @@ class MenteeDiary extends Model
 
         return $regdate->format('Y-m-d H:i');
     }
+
+    public function mentee()
+    {
+        return $this->belongsTo(Mentee::class, 'mentee_srl');
+    }
 }
