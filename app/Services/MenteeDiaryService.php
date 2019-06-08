@@ -65,16 +65,21 @@ class MenteeDiaryService implements DiaryInterface
     /**
      * @param int $diary_srl
      * @return mixed
+     * @throws MeteoException
      */
     public function getDiary(int $diary_srl)
     {
         $diary = $this->menteeDiary->with('mentee')->find($diary_srl);
 
-        if ($this->useJwt() === $diary->mentee_srl) {
-            $diary->setAttribute('is_owner', true);
+        if ($diary) {
+            if ($this->useJwt() === $diary->mentee_srl) {
+                $diary->setAttribute('is_owner', true);
+            }
+
+            return $diary;
         }
 
-        return $diary;
+        throw new MeteoException(200);
     }
 
     /**

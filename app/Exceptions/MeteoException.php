@@ -51,6 +51,12 @@ class MeteoException extends Exception
                 $this->exceptionInfo['message'] = '필수 파라미터가 누락되었습니다.';
                 break;
 
+            case 200 :
+
+                $this->exceptionInfo['code'] = $code;
+                $this->exceptionInfo['message'] = '삭제 된 콘텐츠 입니다.';
+                break;
+
 
             case 700 :
 
