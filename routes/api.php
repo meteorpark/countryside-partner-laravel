@@ -51,16 +51,12 @@ Route::group(['middleware' => 'jwt.auth.custom'], function () {
  | OPEN API CALL
  --------------------------------------------------------------------------
  */
-Route::get('openapi/machines', array( //
-    'as' => 'openapi.machines',
-    'uses' => 'OpenApiController@machines'
-));
 
-Route::get('openapi/dictionary', array( //
-    'as' => 'openapi.dictionary',
-    'uses' => 'OpenApiController@dictionary'
-));
-
+Route::group(['prefix' => 'openapi'], function () {
+    Route::get('machines', 'OpenApiController@machines'); // 전국 농기계 현황
+    Route::get('dictionary', 'OpenApiController@dictionary'); // 우리말 농업용어
+    Route::get('chat/intro', 'OpenApiChatController@intro'); // 귀농귀촌 지능형 상담 - 인트로
+});
 
 
 Route::group(['prefix' => 'v1'], function () {

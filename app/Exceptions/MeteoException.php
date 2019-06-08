@@ -57,6 +57,12 @@ class MeteoException extends Exception
                 $this->exceptionInfo['message'] = '삭제 된 콘텐츠 입니다.';
                 break;
 
+            case 300 :
+
+                $this->exceptionInfo['code'] = $code;
+                $this->exceptionInfo['message'] = 'OPEN-API ERROR';
+                break;
+
 
             case 700 :
 
