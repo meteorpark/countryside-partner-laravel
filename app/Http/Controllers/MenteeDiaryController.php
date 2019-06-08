@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMentorDiaryRequest;
+use App\Http\Requests\UpdateMentorDiaryRequest;
 use App\Services\DiaryInterface;
 use Illuminate\Http\Request;
 
@@ -55,5 +56,15 @@ class MenteeDiaryController extends Controller
         $contents = $this->diary->getDiary($diary_id);
 
         return $contents;
+    }
+
+    /**
+     * @param UpdateMentorDiaryRequest $request
+     * @param int $mentor_srl
+     * @param int $diary_srl
+     */
+    public function update(UpdateMentorDiaryRequest $request, int $mentor_srl, int $diary_srl): void
+    {
+        $this->diary->update($request, $diary_srl);
     }
 }

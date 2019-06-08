@@ -113,12 +113,23 @@ class MenteeDiaryService implements DiaryInterface
     }
 
     /**
-     * @param Object $formData
+     * @param Object $diaryData
      * @param $diary_srl
      * @return mixed
      */
-    public function update(Object $formData, $diary_srl): void
+    public function update(Object $diaryData, $diary_srl): void
     {
-        // TODO: Implement update() method.
+        $diary = $this->menteeDiary->find($diary_srl);
+        $diary->title = $diaryData->title;
+        $diary->contents = $diaryData->contents;
+
+        if (filter_var($diaryData->deleteImage, FILTER_VALIDATE_BOOLEAN) === true) {
+            $diary->image = "";
+        }
+
+        $image = $this->fileUploadService->uploadContent($diaryData->image);
+        empty($image) ? : $diary->image = $image;
+
+        $diary->save();
     }
 }

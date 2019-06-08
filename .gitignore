@@ -19,5 +19,6 @@ composer.lock
 package-lock.json
 Envoy.blade.php
 phpunit.xml
+phpcs.xml
 webpack.mix.js
 /yspark

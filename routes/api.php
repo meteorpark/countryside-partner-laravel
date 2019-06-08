@@ -25,11 +25,21 @@ Route::group(['middleware' => 'jwt.auth.custom'], function () {
     Route::group(['prefix' => 'v1'], function () {
         Route::get('auth', 'LoginController@auth'); // 인증 확인
 
+        /*
+        --------------------------------------------------------------------------
+        | 멘토관련 API
+        --------------------------------------------------------------------------
+        */
         Route::post('mentors/{mentor_srl}/diaries', 'MentorDiaryController@store'); //  멘토 - 영농일지 등록
         Route::put('mentors/{mentor_srl}/diaries/{diary_srl}', 'MentorDiaryController@update'); //  멘토 - 영농일지 수정
         Route::delete('mentors/{mentor_srl}/diaries/{diary_srl}', 'MentorDiaryController@destroy'); //  멘토 - 영농일지 삭제
-
-        Route::post('mentees/{mentee_srl}/diaries', 'MenteeDiaryController@store'); //  멘티 - 영농일지 등록
+        /*
+        --------------------------------------------------------------------------
+        | 멘티관련 API
+        --------------------------------------------------------------------------
+        */
+        Route::post('mentees/{mentee_srl}/diaries', 'MenteeDiaryController@store'); // 영농일지 등록
+        Route::put('mentees/{mentee_srl}/diaries/{diary_srl}', 'MenteeDiaryController@update'); // 영농일지 수정
     });
 });
 
