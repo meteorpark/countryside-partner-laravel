@@ -56,6 +56,7 @@ Route::group(['prefix' => 'openapi'], function () {
     Route::get('machines', 'OpenApiController@machines'); // 전국 농기계 현황
     Route::get('dictionary', 'OpenApiController@dictionary'); // 우리말 농업용어
     Route::get('chat/intro', 'OpenApiChatController@intro'); // 귀농귀촌 지능형 상담 - 인트로
+    Route::get('chat/create-room', 'OpenApiChatController@createRoom'); // 귀농귀촌 지능형 상담 - 채팅방 생성
 });
 
 

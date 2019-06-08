@@ -35,16 +35,13 @@ class OpenApiChatController extends Controller
     /**
      * @return mixed
      */
-    protected function intro()
+    protected function intro() : string
     {
         $url = $this->openApiChatService->getIntroUrl();
-
         $response = $this->httpClient->get($url);
-
         $data = json_decode($response->getBody(), true);
 
         if ($data['status'] === "OK") {
-
             $res['text'] = preg_replace(
                 "/\..\/../",
                 "http://www.okdab.kr/episAutoAnswerApi",
@@ -52,12 +49,26 @@ class OpenApiChatController extends Controller
             );
 
             return $res;
-
         } else {
-
             throw new MeteoException(300);
         }
+    }
 
+    /**
+     * @return mixed
+     * @throws MeteoException
+     */
+    protected function createRoom() : string
+    {
+        $url = $this->openApiChatService->getCreateRoomUrl();
+        $response = $this->httpClient->get($url);
+        $data = json_decode($response->getBody(), true);
 
+        if ($data['status'] === "OK") {
+            $res['roomId'] = $data['result']['roomId'];
+            return $res;
+        } else {
+            throw new MeteoException(300);
+        }
     }
 }
