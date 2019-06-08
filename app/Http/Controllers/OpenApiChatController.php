@@ -6,6 +6,7 @@ use App\Exceptions\MeteoException;
 use App\Services\OpenApiChatService;
 use GuzzleHttp\Client as HttpClient;
 use Illuminate\Http\Request;
+use Validator;
 
 /**
  * Class OpenApiChatController
@@ -32,10 +33,12 @@ class OpenApiChatController extends Controller
         $this->openApiChatService = $openApiChatService;
     }
 
+
     /**
-     * @return mixed
+     * @return array
+     * @throws MeteoException
      */
-    protected function intro() : string
+    protected function intro() : array
     {
         $url = $this->openApiChatService->getIntroUrl();
         $response = $this->httpClient->get($url);
@@ -54,11 +57,12 @@ class OpenApiChatController extends Controller
         }
     }
 
+
     /**
-     * @return mixed
+     * @return array
      * @throws MeteoException
      */
-    protected function createRoom() : string
+    protected function createRoom() : array
     {
         $url = $this->openApiChatService->getCreateRoomUrl();
         $response = $this->httpClient->get($url);
@@ -70,5 +74,34 @@ class OpenApiChatController extends Controller
         } else {
             throw new MeteoException(300);
         }
+    }
+
+
+    /**
+     * @param Request $request
+     * @return array
+     * @throws MeteoException
+     */
+    protected function sendMessage(Request $request) : array
+    {
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'roomId' => 'required|max:20',
+            'msg' => 'required|max:4000',
+        ]);
+        if ($validator->fails()) {
+            throw new MeteoException(101, $validator->errors());
+        }
+        
+        $url = $this->openApiChatService->getSendMessageUrl(
+            $data['roomId'],
+            $data['msg']
+        );
+        $response = $this->httpClient->get($url);
+        $data = json_decode($response->getBody(), true);
+
+        $res['result'] = $data['serverResult']['message']['text'];
+        return $res;
     }
 }

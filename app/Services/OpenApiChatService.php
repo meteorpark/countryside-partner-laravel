@@ -20,7 +20,10 @@ class OpenApiChatService
      * 채팅방 생성
      */
     const API_CHAT_CREATE_ROOM = "/episAutoAnswerApi/webchat/json";
-
+    /**
+     * 대화 하기
+     */
+    const API_CHAT_SEND_MESSAGE = "/episAutoAnswerApi/webchat/msg/json";
     /**
      * OpenApiChatService constructor.
      */
@@ -44,5 +47,21 @@ class OpenApiChatService
     {
         return (string)Uri\Uri::createFromString($this->api_host)
             ->withPath(self::API_CHAT_CREATE_ROOM);
+    }
+    /**
+     * @param string $roomId
+     * @param string $msg
+     * @return string
+     */
+    public function getSendMessageUrl(string $roomId, string $msg)
+    {
+        $queryParams = [
+            'roomId' => $roomId,
+            'msg' => $msg,
+        ];
+
+        return (string)Uri\Uri::createFromString($this->api_host)
+            ->withPath(self::API_CHAT_SEND_MESSAGE)
+            ->withQuery(Uri\build_query($queryParams));
     }
 }
