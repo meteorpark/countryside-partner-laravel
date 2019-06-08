@@ -34,19 +34,18 @@ class MenteeDiaryService implements DiaryInterface
         $this->menteeDiary= $menteeDiary;
         $this->fileUploadService = $fileUploadService;
     }
-
-
-
-
-
     /**
      * @param int $diary_srl
      * @param int $user_id
      * @return mixed
      */
-    public function destroy(int $diary_srl, int $user_id): void
+    public function destroy(int $diary_srl, int $mentor_srl): void
     {
-        // TODO: Implement destroy() method.
+        $diary = MenteeDiary::find($diary_srl);
+
+        if ($diary) {
+            $diary->delete();
+        }
     }
 
     /**
@@ -69,7 +68,6 @@ class MenteeDiaryService implements DiaryInterface
      */
     public function getDiary(int $diary_srl)
     {
-
         $diary = $this->menteeDiary->with('mentee')->find($diary_srl);
 
         if ($this->useJwt() === $diary->mentee_srl) {
@@ -93,7 +91,6 @@ class MenteeDiaryService implements DiaryInterface
      */
     public function userDiary(int $mentee_srl)
     {
-        
         $menteeDiaries = $this->menteeDiary->where('mentee_srl', $mentee_srl)->orderBy('regdate', 'DESC')->paginate(15);
         $collection = collect($menteeDiaries);
 

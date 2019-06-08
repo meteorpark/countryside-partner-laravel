@@ -40,6 +40,7 @@ Route::group(['middleware' => 'jwt.auth.custom'], function () {
         */
         Route::post('mentees/{mentee_srl}/diaries', 'MenteeDiaryController@store'); // 영농일지 등록
         Route::put('mentees/{mentee_srl}/diaries/{diary_srl}', 'MenteeDiaryController@update'); // 영농일지 수정
+        Route::delete('mentees/{mentee_srl}/diaries/{diary_srl}', 'MenteeDiaryController@destroy'); // 영농일지 삭제
     });
 });
 

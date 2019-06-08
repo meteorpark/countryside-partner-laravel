@@ -67,4 +67,12 @@ class MenteeDiaryController extends Controller
     {
         $this->diary->update($request, $diary_srl);
     }
+
+    /**
+     * @param Request $request
+     */
+    public function destroy(Request $request): void
+    {
+        $this->diary->destroy($request->diary_srl, $request->id);
+    }
 }
