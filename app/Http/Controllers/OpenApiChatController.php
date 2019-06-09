@@ -42,16 +42,16 @@ class OpenApiChatController extends Controller
     {
         $url = $this->openApiChatService->getIntroUrl();
         $response = $this->httpClient->get($url);
-        $data = json_decode($response->getBody(), true);
+        $responseDecode = json_decode($response->getBody(), true);
 
-        if ($data['status'] === "OK") {
-            $res['text'] = preg_replace(
+        if ($responseDecode['status'] === "OK") {
+            $result['text'] = preg_replace(
                 "/\..\/../",
                 "http://www.okdab.kr/episAutoAnswerApi",
-                $data['result']['message']['text']
+                $responseDecode['result']['message']['text']
             );
 
-            return $res;
+            return $result;
         } else {
             throw new MeteoException(300);
         }
@@ -66,11 +66,11 @@ class OpenApiChatController extends Controller
     {
         $url = $this->openApiChatService->getCreateRoomUrl();
         $response = $this->httpClient->get($url);
-        $data = json_decode($response->getBody(), true);
+        $responseDecode = json_decode($response->getBody(), true);
 
-        if ($data['status'] === "OK") {
-            $res['roomId'] = $data['result']['roomId'];
-            return $res;
+        if ($responseDecode['status'] === "OK") {
+            $result['roomId'] = $responseDecode['result']['roomId'];
+            return $result;
         } else {
             throw new MeteoException(300);
         }
@@ -99,9 +99,9 @@ class OpenApiChatController extends Controller
             $data['msg']
         );
         $response = $this->httpClient->get($url);
-        $data = json_decode($response->getBody(), true);
+        $responseDecode = json_decode($response->getBody(), true);
 
-        $res['result'] = $data['serverResult']['message']['text'];
-        return $res;
+        $result['result'] = $responseDecode['serverResult']['message']['text'];
+        return $result;
     }
 }

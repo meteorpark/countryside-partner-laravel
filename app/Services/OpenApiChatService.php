@@ -58,6 +58,7 @@ class OpenApiChatService
         $queryParams = [
             'roomId' => $roomId,
             'msg' => $msg,
+//            'msg' => urlencode("농업인 확인서 발급기준")
         ];
 
         return (string)Uri\Uri::createFromString($this->api_host)
