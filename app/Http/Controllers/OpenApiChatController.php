@@ -7,6 +7,7 @@ use App\Services\OpenApiChatService;
 use GuzzleHttp\Client as HttpClient;
 use Illuminate\Http\Request;
 use Validator;
+use Exception;
 
 /**
  * Class OpenApiChatController
@@ -96,12 +97,21 @@ class OpenApiChatController extends Controller
         
         $url = $this->openApiChatService->getSendMessageUrl(
             $data['roomId'],
-            $data['msg']
+            $data['msg'],
         );
         $response = $this->httpClient->get($url);
         $responseDecode = json_decode($response->getBody(), true);
 
-        $result['result'] = $responseDecode['serverResult']['message']['text'];
-        return $result;
+        try{
+
+            $result['result'] = $responseDecode['serverResult']['message']['text'];
+
+            return $result;
+
+        }catch (Exception $e){
+
+            throw new MeteoException(300, $e->getMessage());
+        }
+
     }
 }

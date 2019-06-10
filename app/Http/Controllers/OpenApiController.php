@@ -8,6 +8,10 @@ use GuzzleHttp\Client as HttpClient;
 use Illuminate\Http\Request;
 use Validator;
 
+/**
+ * Class OpenApiController
+ * @package App\Http\Controllers
+ */
 class OpenApiController extends Controller
 {
     /** @var HttpClient */
@@ -66,7 +70,6 @@ class OpenApiController extends Controller
     protected function dictionary(Request $request)
     {
         $data = $request->all();
-
         $validator = Validator::make($data, [
             'CL_NM' => 'required',
         ]);
@@ -82,4 +85,55 @@ class OpenApiController extends Controller
 
         return json_decode($response->getBody(), true);
     }
+
+
+    /**
+     * @param Request $request
+     * @return mixed
+     * @throws MeteoException
+     */
+    protected function specialCrops(Request $request)
+    {
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'year' => 'required',
+            'ctprvn' => 'required',
+        ]);
+        if ($validator->fails()) {
+            throw new MeteoException(101, $validator->errors());
+        }
+
+        $url = $this->openApiService->getSpecialCropsUrl(
+            $data['year'],
+            $data['ctprvn'],
+        );
+
+        $response = $this->httpClient->get($url);
+
+        $response = $this->responseAgainApi($data['year'], $data['ctprvn'], $response, OpenApiService::API_GRID_SPECIAL_CROPS);
+
+        return json_decode($response->getBody(), true);
+    }
+
+
+    /**
+     * @param $year
+     * @param $ctprvn
+     * @param $response
+     * @param $apiType
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    private function responseAgainApi($year, $ctprvn, $response, $apiType)
+    {
+        $resArray = json_decode($response->getBody(), true);
+
+        $url = $this->openApiService->getSpecialCropsUrl(
+            $year,
+            $ctprvn,
+            $resArray[$apiType]['totalCnt']
+        );
+
+        return $this->httpClient->get($url);
+    }
 }
+
