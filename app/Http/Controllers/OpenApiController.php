@@ -127,13 +127,21 @@ class OpenApiController extends Controller
     {
         $resArray = json_decode($response->getBody(), true);
 
-        $url = $this->openApiService->getSpecialCropsUrl(
-            $year,
-            $ctprvn,
-            $resArray[$apiType]['totalCnt']
-        );
+        if ($resArray[$apiType]['totalCnt'] < 1) {
 
-        return $this->httpClient->get($url);
+            return $response;
+
+        } else{
+
+            $url = $this->openApiService->getSpecialCropsUrl(
+                $year,
+                $ctprvn,
+                $resArray[$apiType]['totalCnt']
+            );
+
+            return $this->httpClient->get($url);
+        }
+
     }
 }
 
