@@ -10,6 +10,20 @@ use League\Uri;
  */
 class OpenApiService
 {
+    /** @var ?string */
+    private $api_key = null;
+
+    /** @var string  */
+    private $api_call_url = 'http://211.237.50.150:7080';
+
+    /**
+     * OpenApiService constructor.
+     */
+    public function __construct()
+    {
+        $this->api_key = config('open_api.key');
+    }
+
     /**
      *
      */
@@ -26,22 +40,6 @@ class OpenApiService
      *
      */
     const API_GRID_SPECIAL_CROPS = "Grid_20141119000000000065_1"; // 특용작물생산통계
-
-
-
-    /** @var ?string */
-    private $api_key = null;
-
-    /** @var string  */
-    private $api_call_url = 'http://211.237.50.150:7080';
-
-    /**
-     * OpenApiService constructor.
-     */
-    public function __construct()
-    {
-        $this->api_key = config('open_api.key');
-    }
 
     /**
      * @param string $ctprvn

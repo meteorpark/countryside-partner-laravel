@@ -7,6 +7,7 @@ use App\Services\OpenApiService;
 use GuzzleHttp\Client as HttpClient;
 use Illuminate\Http\Request;
 use Validator;
+use Exception;
 
 /**
  * Class OpenApiController
@@ -118,30 +119,40 @@ class OpenApiController extends Controller
 
     /**
      * @param $year
-     * @param $ctprvn
+     * @param $query
      * @param $response
      * @param $apiType
      * @return \Psr\Http\Message\ResponseInterface
      */
-    private function responseAgainApi($year, $ctprvn, $response, $apiType)
+    private function responseAgainApi($year, $query, $response, $apiType)
     {
         $resArray = json_decode($response->getBody(), true);
 
-        if ($resArray[$apiType]['totalCnt'] < 1) {
 
-            return $response;
+        try {
 
-        } else{
+            if ($resArray[$apiType]['totalCnt'] >= 0 && $resArray[$apiType]['totalCnt'] <= 50) {
 
-            $url = $this->openApiService->getSpecialCropsUrl(
-                $year,
-                $ctprvn,
-                $resArray[$apiType]['totalCnt']
-            );
+                return $response;
 
-            return $this->httpClient->get($url);
+            } else{
+
+                $url = $this->openApiService->getSpecialCropsUrl(
+                    $year,
+                    $query,
+                    $resArray[$apiType]['totalCnt']
+                );
+
+                return $this->httpClient->get($url);
+            }
+
+        }catch (Exception $e) {
+            throw new MeteoException($e->getCode(), "[".$resArray['result']['code']."] ".$resArray['result']['message']);
         }
 
+
     }
+
+
 }
 
