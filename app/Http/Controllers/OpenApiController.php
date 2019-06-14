@@ -113,7 +113,7 @@ class OpenApiController extends Controller
 
         $responseBody = json_decode($response->getBody(), true);
 
-        if ($responseBody[OpenApiService::API_GRID_SPECIAL_CROPS]['totalCnt'] <= 50) {
+        if ($responseBody[OpenApiService::API_GRID_SPECIAL_CROPS]['totalCnt'] > 50) {
 
             $url = $this->openApiService->getSpecialCropsUrl(
                 $data['year'],
@@ -148,13 +148,13 @@ class OpenApiController extends Controller
             $data['gubuncd'],
             $data['dealtypecd'],
         );
-
         $response = $this->httpClient->get($url);
+
 
         $responseBody = json_decode($response->getBody(), true);
 
 
-        if ($responseBody[OpenApiService::API_GRID_EMPTY_HOUSES]['totalCnt'] <= 50) {
+        if ($responseBody[OpenApiService::API_GRID_EMPTY_HOUSES]['totalCnt'] > 50) {
 
             $url = $this->openApiService->getEmptyHousesUrl(
                 $data['sidonm'],
