@@ -27,7 +27,7 @@ class OpenApiService
     /**
      *
      */
-    const API_PAGE_LIMIT = 200;
+    const API_PAGE_LIMIT = 100;
     /**
      *
      */
@@ -40,6 +40,12 @@ class OpenApiService
      *
      */
     const API_GRID_SPECIAL_CROPS = "Grid_20141119000000000065_1"; // 특용작물생산통계
+    /**
+     *
+     */
+    const API_GRID_EMPTY_HOUSES = "Grid_20150914000000000230_1"; // 농촌 빈집 정보
+
+
 
     /**
      * @param string $ctprvn
@@ -80,10 +86,10 @@ class OpenApiService
     /**
      * @param int $year
      * @param string $ctprvn
-     * @param int $limit
+     * @param string $limit
      * @return string
      */
-    public function getSpecialCropsUrl(int $year, string $ctprvn, int $limit = 50) : string
+    public function getSpecialCropsUrl(int $year, string $ctprvn, string $limit = self::API_PAGE_LIMIT) : string
     {
         $queryParams = [
             'YEAR' => $year,
@@ -92,6 +98,28 @@ class OpenApiService
 
         return (string)Uri\Uri::createFromString($this->api_call_url)
             ->withPath("/openapi/".$this->api_key.'/json/'.static::API_GRID_SPECIAL_CROPS.'/1/'.$limit)
+            ->withQuery(Uri\build_query($queryParams));
+    }
+
+
+    /**
+     * @param string $sidonm
+     * @param string $gubuncd
+     * @param string $
+     * @param $dealtypecd
+     * @param string $limit
+     * @return string
+     */
+    public function getEmptyHousesUrl(string $sidonm, string $gubuncd, string $dealtypecd, string $limit = self::API_PAGE_LIMIT) : string
+    {
+        $queryParams = [
+            'SIDO_NM' => $sidonm,
+            'GUBUN_CD' => $gubuncd,
+            'DEAL_TYPE_CD' => $dealtypecd,
+        ];
+
+        return (string)Uri\Uri::createFromString($this->api_call_url)
+            ->withPath("/openapi/".$this->api_key.'/json/'.static::API_GRID_EMPTY_HOUSES.'/1/'.$limit)
             ->withQuery(Uri\build_query($queryParams));
     }
 }

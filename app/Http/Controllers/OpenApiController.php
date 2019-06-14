@@ -111,47 +111,65 @@ class OpenApiController extends Controller
 
         $response = $this->httpClient->get($url);
 
-        $response = $this->responseAgainApi($data['year'], $data['ctprvn'], $response, OpenApiService::API_GRID_SPECIAL_CROPS);
+        $responseBody = json_decode($response->getBody(), true);
+
+        if ($responseBody[OpenApiService::API_GRID_SPECIAL_CROPS]['totalCnt'] <= 50) {
+
+            $url = $this->openApiService->getSpecialCropsUrl(
+                $data['year'],
+                $data['ctprvn'],
+                $responseBody[OpenApiService::API_GRID_SPECIAL_CROPS]['totalCnt']
+            );
+            $response = $this->httpClient->get($url);
+        }
+
+        return json_decode($response->getBody(), true);
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     * @throws MeteoException
+     */
+    protected function emptyHouses(Request $request)
+    {
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'sidonm' => 'required',
+            'gubuncd' => 'required|in:F,U', // 구분(농지: F, 빈집:U)코드
+            'dealtypecd' => 'required|in:DLTC01,DLTC02,DLTC03,DLTC04,DLTC05', // DLTC01:매매,DLTC02:임대(전세),DLTC03:임대(월세),DLTC04:협의후결정,DLTC05:무료임대
+        ]);
+        if ($validator->fails()) {
+            throw new MeteoException(101, $validator->errors());
+        }
+
+        $url = $this->openApiService->getEmptyHousesUrl(
+            $data['sidonm'],
+            $data['gubuncd'],
+            $data['dealtypecd'],
+        );
+
+        $response = $this->httpClient->get($url);
+
+        $responseBody = json_decode($response->getBody(), true);
+
+
+        if ($responseBody[OpenApiService::API_GRID_EMPTY_HOUSES]['totalCnt'] <= 50) {
+
+            $url = $this->openApiService->getEmptyHousesUrl(
+                $data['sidonm'],
+                $data['gubuncd'],
+                $data['dealtypecd'],
+                $responseBody[OpenApiService::API_GRID_EMPTY_HOUSES]['totalCnt']
+            );
+            $response = $this->httpClient->get($url);
+        }
 
         return json_decode($response->getBody(), true);
     }
 
 
-    /**
-     * @param $year
-     * @param $query
-     * @param $response
-     * @param $apiType
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    private function responseAgainApi($year, $query, $response, $apiType)
-    {
-        $resArray = json_decode($response->getBody(), true);
 
-
-        try {
-
-            if ($resArray[$apiType]['totalCnt'] >= 0 && $resArray[$apiType]['totalCnt'] <= 50) {
-
-                return $response;
-
-            } else{
-
-                $url = $this->openApiService->getSpecialCropsUrl(
-                    $year,
-                    $query,
-                    $resArray[$apiType]['totalCnt']
-                );
-
-                return $this->httpClient->get($url);
-            }
-
-        }catch (Exception $e) {
-            throw new MeteoException($e->getCode(), "[".$resArray['result']['code']."] ".$resArray['result']['message']);
-        }
-
-
-    }
 
 
 }
