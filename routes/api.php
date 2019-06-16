@@ -62,12 +62,14 @@ Route::group(['prefix' => 'openapi'], function () {
 
 
     // 서비스 정지 됨.
-    Route::get('chat/intro', 'OpenApiChatController@intro'); // 귀농귀촌 지능형 상담 - 인트로
-    Route::get('chat/room', 'OpenApiChatController@createRoom'); // 귀농귀촌 지능형 상담 - 채팅방 생성
-    Route::get('chat/msg', 'OpenApiChatController@sendMessage'); // 귀농귀촌 지능형 상담 - 사용자 질의에 대한 상담 답변
+//    Route::get('chat/intro', 'OpenApiChatController@intro'); // 귀농귀촌 지능형 상담 - 인트로
+//    Route::get('chat/room', 'OpenApiChatController@createRoom'); // 귀농귀촌 지능형 상담 - 채팅방 생성
+//    Route::get('chat/msg', 'OpenApiChatController@sendMessage'); // 귀농귀촌 지능형 상담 - 사용자 질의에 대한 상담 답변
 
 });
 
+
+Route::get('v1/chat', 'ChatController@index'); // 채팅하기
 
 Route::group(['prefix' => 'v1'], function () {
     Route::get('main', array(
@@ -91,9 +93,6 @@ Route::group(['prefix' => 'v1'], function () {
         'as' => 'diaries-mentors.articles.index',
         'uses' => 'MentorDiaryController@index'
     ));
-
-
-
     Route::post('login', 'LoginController@login'); // 로그인
     Route::post('join/mentor', array( // 멘토 - 회원가입
         'as' => 'join.store',
@@ -104,13 +103,4 @@ Route::group(['prefix' => 'v1'], function () {
         'uses' => 'MenteeController@store'
     ));
 
-    // NEW API
-    Route::post('memo', array( // 쪽지보내기
-        'as' => 'memo',
-        'uses' => 'MentorController@store'
-    ));
-    Route::get('memo/{user_id}', array( // 내 쪽지조회
-        'as' => 'memo',
-        'uses' => 'MentorController@index'
-    ));
 });
