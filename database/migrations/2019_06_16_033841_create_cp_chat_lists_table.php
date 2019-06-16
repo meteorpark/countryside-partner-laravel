@@ -15,8 +15,8 @@ class CreateCpChatListsTable extends Migration
     {
         Schema::create('cp_chat_lists', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('constructor'); // mentor|mentor_srl or mentee|mentee_srl
-            $table->string('participants'); // mentor|mentor_srl or mentee|mentee_srl
+            $table->string('constructor'); // mentor_mentor_srl or mentee_mentee_srl
+            $table->string('participants'); // mentor_mentor_srl or mentee_mentee_srl
             $table->timestamps();
         });
     }

@@ -13,6 +13,7 @@ class CreateCpChatConversations extends Migration
      */
     public function up()
     {
+
         Schema::create('cp_chat_conversations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('chat_lists_id');

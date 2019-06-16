@@ -59,9 +59,7 @@ Route::group(['prefix' => 'openapi'], function () {
     Route::get('empty-houses', 'OpenApiController@emptyHouses'); // 농촌 빈집 정보
 
 
-
-
-    // 서비스 정지 됨.
+// 서비스 정지 됨.
 //    Route::get('chat/intro', 'OpenApiChatController@intro'); // 귀농귀촌 지능형 상담 - 인트로
 //    Route::get('chat/room', 'OpenApiChatController@createRoom'); // 귀농귀촌 지능형 상담 - 채팅방 생성
 //    Route::get('chat/msg', 'OpenApiChatController@sendMessage'); // 귀농귀촌 지능형 상담 - 사용자 질의에 대한 상담 답변
@@ -69,7 +67,9 @@ Route::group(['prefix' => 'openapi'], function () {
 });
 
 
-Route::get('v1/chat', 'ChatController@index'); // 채팅하기
+Route::post('chat/message', 'ChatController@store'); // 채팅하기
+
+
 
 Route::group(['prefix' => 'v1'], function () {
     Route::get('main', array(

@@ -24,11 +24,9 @@ class StoreChatRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required',
-            'contents' => 'required',
+            'message' => 'required',
             'to' => 'required',
             'from' => 'required',
-            'chat_lists_id' => 'required',
         ];
     }
 }

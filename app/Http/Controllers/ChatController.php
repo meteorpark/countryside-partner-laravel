@@ -3,36 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreChatRequest;
-use App\Models\ChatLists;
+use App\Models\ChatConversations;
 use App\Services\ChatService;
 use Illuminate\Http\Request;
 
+/**
+ * Class ChatController
+ * @package App\Http\Controllers
+ */
 class ChatController extends Controller
 {
-
+    /**
+     * @var ChatService|null
+     */
     private $chatService = null;
 
+    /**
+     * ChatController constructor.
+     * @param ChatService $chatService
+     */
     public function __construct(ChatService $chatService)
     {
         $this->chatService = $chatService;
     }
-
-
-    protected function store(Request $request)
+    /**
+     * @param StoreChatRequest $request
+     * @return mixed
+     */
+    protected function store(StoreChatRequest $request)
     {
-        if (empty($request->chat_lists_id)) { // 채팅방 신규생성
-
-            $id = $this->chatService->createChatRoom($request->from, $request->to);
-
+        $chat_lists_id = null;
+        $data = $request->all();
+        if (empty($data['chat_lists_id'])) { // 채팅방 신규생성
+            $chat_lists_id = $this->chatService->createChatRoom($data['from'], $data['to']);
+        } else {
+            $chat_lists_id = $data['chat_lists_id'];
         }
 
+        $message_id = $this->chatService->message($chat_lists_id, $data['from'], $data['to'], $data['message']);
 
-//        $data = $request->all();
-//        $data['profile_image'] = $this->fileUploadService->uploadProfile($request->file('profile_image'));
-//        $mentor = Mentor::create($data);
-//        $mentor->setAttribute('token', JWTAuth::fromUser($mentor));
-//        return $mentor;
-
-
+        return $this->show($message_id);
     }
+    /**
+     * @param $message_id
+     * @return mixed
+     */
+    public function show($message_id)
+    {
+        return ChatConversations::find($message_id);
+    }
+
+
 }
