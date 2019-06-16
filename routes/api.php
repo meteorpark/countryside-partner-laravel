@@ -67,15 +67,15 @@ Route::group(['prefix' => 'openapi'], function () {
 });
 
 
-Route::post('chat/message', 'ChatController@store'); // 채팅하기
-
-
 
 Route::group(['prefix' => 'v1'], function () {
     Route::get('main', array(
         'as' => 'main',
         'uses' => 'MainController@index'
     ));
+
+    Route::post('chat/message', 'ChatController@store'); // 채팅하기
+    Route::get('chat/message/{chat_lists_id}', 'ChatController@lists'); // 채팅리스트
 
     Route::get('mentees', 'MenteeController@index'); // 멘티 전체 조회
     Route::get('mentees/{mentee_srl}', 'MenteeController@view'); // 멘티 프로필 조회

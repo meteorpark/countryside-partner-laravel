@@ -54,4 +54,14 @@ class ChatController extends Controller
     }
 
 
+    /**
+     * @param $chat_lists_id
+     * @return mixed
+     */
+    public function lists($chat_lists_id)
+    {
+        $conversations = ChatConversations::where('chat_lists_id', $chat_lists_id)->orderBy('created_at', 'DESC')->paginate(15);
+
+        return $conversations;
+    }
 }

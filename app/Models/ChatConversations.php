@@ -21,6 +21,10 @@ class ChatConversations extends Model
      */
     protected $table = "cp_chat_conversations";
 
+    /**
+     * @param $value
+     * @return false|string
+     */
     public function getCreatedAtAttribute($value)
     {
         return date('D M d Y H:i:s \G\M\TO (T)', strtotime($value));
