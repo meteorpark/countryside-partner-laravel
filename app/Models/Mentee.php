@@ -6,6 +6,42 @@ use Illuminate\Database\Eloquent\Model;
 use Hash;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/**
+ * App\Models\Mentee
+ *
+ * @property int $mentee_srl
+ * @property string $id
+ * @property string $name
+ * @property string $password
+ * @property string|null $profile_image
+ * @property string $introduce
+ * @property string $address
+ * @property string|null $phone
+ * @property string|null $sex
+ * @property string|null $birthday
+ * @property int|null $homi
+ * @property string|null $crops
+ * @property string|null $target_area
+ * @property \Illuminate\Support\Carbon $regdate
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee whereBirthday($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee whereCrops($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee whereHomi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee whereIntroduce($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee whereMenteeSrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee whereProfileImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee whereRegdate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee whereSex($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentee whereTargetArea($value)
+ * @mixin \Eloquent
+ */
 class Mentee extends Model implements JWTSubject
 {
     const CREATED_AT = 'regdate';

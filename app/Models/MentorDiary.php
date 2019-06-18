@@ -8,7 +8,36 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class MentorDiary
+ *
  * @package App\Models
+ * @property int $diary_srl
+ * @property int $mentor_srl
+ * @property string $title
+ * @property string|null $image
+ * @property string $contents
+ * @property int $view_count
+ * @property int $like_count
+ * @property string $regdate
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Mentor $mentor
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MentorDiary newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MentorDiary newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\MentorDiary onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MentorDiary query()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MentorDiary whereContents($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MentorDiary whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MentorDiary whereDiarySrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MentorDiary whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MentorDiary whereLikeCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MentorDiary whereMentorSrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MentorDiary whereRegdate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MentorDiary whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MentorDiary whereViewCount($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\MentorDiary withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\MentorDiary withoutTrashed()
+ * @mixin \Eloquent
  */
 class MentorDiary extends Model
 {

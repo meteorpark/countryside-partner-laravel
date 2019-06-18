@@ -6,6 +6,38 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Models\MenteeDiary
+ *
+ * @property int $diary_srl
+ * @property int $mentee_srl
+ * @property string $title
+ * @property string|null $image
+ * @property string $contents
+ * @property int $view_count
+ * @property int $like_count
+ * @property string $regdate
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Mentee $mentee
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MenteeDiary newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MenteeDiary newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\MenteeDiary onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MenteeDiary query()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MenteeDiary whereContents($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MenteeDiary whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MenteeDiary whereDiarySrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MenteeDiary whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MenteeDiary whereLikeCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MenteeDiary whereMenteeSrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MenteeDiary whereRegdate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MenteeDiary whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MenteeDiary whereViewCount($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\MenteeDiary withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\MenteeDiary withoutTrashed()
+ * @mixin \Eloquent
+ */
 class MenteeDiary extends Model
 {
     use SoftDeletes;

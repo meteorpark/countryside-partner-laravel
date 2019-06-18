@@ -13,13 +13,18 @@ use Illuminate\Support\Facades\Config;
 class ChatConversations extends Model
 {
     /**
-     * @var array
-     */
-    protected $hidden = ['updated_at'];
-    /**
      * @var string
      */
     protected $table = "cp_chat_conversations";
+    /**
+     * @var array
+     */
+    protected $hidden = ['updated_at'];
+
+    /**
+     * @var array
+     */
+    protected $touches = ['parentUpdatedAt'];
 
     /**
      * @param $value
@@ -28,5 +33,14 @@ class ChatConversations extends Model
     public function getCreatedAtAttribute($value)
     {
         return date('D M d Y H:i:s \G\M\TO (T)', strtotime($value));
+    }
+
+    /**
+     * 채팅방목록 시간 변경
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parentUpdatedAt()
+    {
+        return $this->belongsTo(ChatLists::class, 'chat_lists_id');
     }
 }

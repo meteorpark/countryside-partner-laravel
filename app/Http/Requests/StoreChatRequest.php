@@ -4,6 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class StoreChatRequest
+ * @package App\Http\Requests
+ */
 class StoreChatRequest extends FormRequest
 {
     /**
@@ -25,8 +29,8 @@ class StoreChatRequest extends FormRequest
     {
         return [
             'message' => 'required',
-            'to' => 'required',
-            'from' => 'required',
+            'to' => 'required', // 멘티타입_회원번호
+            'from' => 'required', // 멘티타입_회원번호
         ];
     }
 }

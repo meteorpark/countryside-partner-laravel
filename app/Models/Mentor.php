@@ -7,6 +7,48 @@ use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Hash;
 
+/**
+ * App\Models\Mentor
+ *
+ * @property int $mentor_srl
+ * @property string $id
+ * @property string $name
+ * @property string $password
+ * @property string|null $profile_image
+ * @property string $introduce
+ * @property string $address
+ * @property string|null $farm_name
+ * @property string|null $phone
+ * @property string|null $career
+ * @property string|null $crops
+ * @property string|null $sex
+ * @property int|null $mentoring_count
+ * @property int|null $homi
+ * @property string|null $birthday
+ * @property \Illuminate\Support\Carbon $regdate
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MentorDiary[] $diaries
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor whereBirthday($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor whereCareer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor whereCrops($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor whereFarmName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor whereHomi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor whereIntroduce($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor whereMentorSrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor whereMentoringCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor whereProfileImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor whereRegdate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mentor whereSex($value)
+ * @mixin \Eloquent
+ */
 class Mentor extends Model implements JWTSubject
 {
     use Notifiable;

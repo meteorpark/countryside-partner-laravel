@@ -41,6 +41,14 @@ Route::group(['middleware' => 'jwt.auth.custom'], function () {
         Route::post('mentees/{mentee_srl}/diaries', 'MenteeDiaryController@store'); // 영농일지 등록
         Route::put('mentees/{mentee_srl}/diaries/{diary_srl}', 'MenteeDiaryController@update'); // 영농일지 수정
         Route::delete('mentees/{mentee_srl}/diaries/{diary_srl}', 'MenteeDiaryController@destroy'); // 영농일지 삭제
+        /*
+        --------------------------------------------------------------------------
+        | 멘토링(채팅) API
+        --------------------------------------------------------------------------
+        */
+        Route::get('chat', 'ChatController@chatLists'); // 채팅목록 가져오기
+        Route::post('chat/message', 'ChatController@store'); // 메세지 전송
+        Route::get('chat/message/{chat_lists_id}', 'ChatController@messagelists'); // 대화 리스트
     });
 });
 
@@ -63,7 +71,6 @@ Route::group(['prefix' => 'openapi'], function () {
 //    Route::get('chat/intro', 'OpenApiChatController@intro'); // 귀농귀촌 지능형 상담 - 인트로
 //    Route::get('chat/room', 'OpenApiChatController@createRoom'); // 귀농귀촌 지능형 상담 - 채팅방 생성
 //    Route::get('chat/msg', 'OpenApiChatController@sendMessage'); // 귀농귀촌 지능형 상담 - 사용자 질의에 대한 상담 답변
-
 });
 
 
@@ -73,9 +80,6 @@ Route::group(['prefix' => 'v1'], function () {
         'as' => 'main',
         'uses' => 'MainController@index'
     ));
-
-    Route::post('chat/message', 'ChatController@store'); // 채팅하기
-    Route::get('chat/message/{chat_lists_id}', 'ChatController@lists'); // 채팅리스트
 
     Route::get('mentees', 'MenteeController@index'); // 멘티 전체 조회
     Route::get('mentees/{mentee_srl}', 'MenteeController@view'); // 멘티 프로필 조회
@@ -102,5 +106,4 @@ Route::group(['prefix' => 'v1'], function () {
         'as' => 'join.store',
         'uses' => 'MenteeController@store'
     ));
-
 });
