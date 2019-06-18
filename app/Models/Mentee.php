@@ -44,28 +44,60 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  */
 class Mentee extends Model implements JWTSubject
 {
+    /**
+     *
+     */
     const CREATED_AT = 'regdate';
+    /**
+     *
+     */
     const UPDATED_AT = null;
 
+    /**
+     * @var string
+     */
     protected $table = "cp_mentees";
+    /**
+     * @var string
+     */
     protected $primaryKey = "mentee_srl";
+    /**
+     * @var array
+     */
     protected $guarded = []; // 입력된 배열을 제외한 모든 속성들은 대량 할당이 가능하다.
 //    protected $fillable = ['name']; // name 를 대량 할당이 가능하다.
 //  guarded 혹은 fillable 둘 중에 하나만 써야 함.
 
+    /**
+     * @var array
+     */
     protected $hidden = ['password', 'phone', 'regdate'];
 
 
+    /**
+     * @param $value
+     */
     public function setPasswordAttribute($value){
 
         $this->attributes['password'] = Hash::make($value);
     }
 
+    /**
+     * @param $value
+     */
     public function setPhoneAttribute($value){
 
         $this->attributes['phone'] = encrypt($value);
     }
 
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getProfileImageAttribute($value)
+    {
+        return empty($value) ? $value = "/images/ico/homi.png" : $value;
+    }
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

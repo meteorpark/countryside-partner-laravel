@@ -53,15 +53,33 @@ class Mentor extends Model implements JWTSubject
 {
     use Notifiable;
 
+    /**
+     *
+     */
     const CREATED_AT = 'regdate';
+    /**
+     *
+     */
     const UPDATED_AT = null;
 
+    /**
+     * @var string
+     */
     protected $table = "cp_mentors";
+    /**
+     * @var string
+     */
     protected $primaryKey = "mentor_srl";
+    /**
+     * @var array
+     */
     protected $guarded = []; // name을 제외한 모든 속성들은 대량 할당이 가능하다.
 //    protected $fillable = ['name']; // name, 를 대량 할당이 가능하다.
 //  guarded 혹은 fillable 둘 중에 하나만 써야 함.
 
+    /**
+     * @var array
+     */
     protected $hidden = ['password', 'phone', 'regdate'];
 
     /** mutators */
@@ -70,16 +88,31 @@ class Mentor extends Model implements JWTSubject
         $this->attributes['password'] = Hash::make($value);
     }
 
+    /**
+     * @param $value
+     */
     public function setPhoneAttribute($value)
     {
         $this->attributes['phone'] = encrypt($value);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function diaries()
     {
         return $this->hasMany(MentorDiary::class, 'mentor_srl');
     }
 
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getProfileImageAttribute($value)
+    {
+        return empty($value) ? $value = "/images/ico/homi.png" : $value;
+    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
