@@ -40,7 +40,7 @@ class ChatLists extends Model
      */
     public function lastMessage()
     {
-        return $this->hasMany(ChatConversations::class)->orderBy('created_at', 'DESC')->take(1);
+        return $this->hasMany(ChatConversations::class)->orderBy('created_at', 'DESC');
     }
 
 
