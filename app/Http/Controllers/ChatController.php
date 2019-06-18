@@ -6,6 +6,8 @@ use App\Exceptions\MeteoException;
 use App\Http\Requests\StoreChatRequest;
 use App\Models\ChatConversations;
 use App\Models\ChatLists;
+use App\Models\Mentee;
+use App\Models\Mentor;
 use App\Services\ChatService;
 use Illuminate\Http\Request;
 
@@ -74,7 +76,6 @@ class ChatController extends Controller
     {
         $data = $request->all();
         $user = $data['user_type']."_".$data['id'];
-
-        return ChatLists::orWhere('constructor', $user)->orWhere('participants', $user)->orderBy('updated_at', 'DESC')->with('lastMessage')->get();
+        return $this->chatService->chatLists($user);
     }
 }

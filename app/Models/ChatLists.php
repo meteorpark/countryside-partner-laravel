@@ -42,4 +42,7 @@ class ChatLists extends Model
     {
         return $this->hasMany(ChatConversations::class)->orderBy('created_at', 'DESC')->take(1);
     }
+
+
+
 }

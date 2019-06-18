@@ -5,6 +5,8 @@ namespace App\Services;
 
 use App\Models\ChatConversations;
 use App\Models\ChatLists;
+use App\Models\Mentee;
+use App\Models\Mentor;
 
 /**
  * Class ChatService
@@ -64,4 +66,52 @@ class ChatService
 
         return $this->chatConversations->id;
     }
+
+
+    /**
+     * @param $user
+     * @return mixed
+     */
+    public function chatLists($user)
+    {
+        $lists = $this->getChatLists($user);
+
+        // TODO : DB설계 다시 해야 함.
+        foreach ($lists as $list) {
+
+            $constructor = null;
+            $participant = null;
+
+            $expConstructor = explode("_", $list->constructor);
+            $expParticipant = explode("_", $list->participants);
+
+            if (strpos($list->constructor, "MENTOR") !== false) {
+                $constructor = Mentor::find($expConstructor[1]);
+            } elseif (strpos($list->constructor, "MENTEE") !== false) {
+                $constructor = Mentee::find($expConstructor[1]);
+            }
+
+            if (strpos($list->participants, "MENTOR") !== false) {
+                $participant = Mentor::find($expParticipant[1]);
+            } elseif (strpos($list->participants, "MENTEE") !== false) {
+                $participant = Mentee::find($expParticipant[1]);
+            }
+            $list->setAttribute('constructor_image', $constructor ? $constructor->profile_image : "");
+            $list->setAttribute('constructor_name', $constructor ? $constructor->name : "");
+            $list->setAttribute('participants_image', $participant ? $participant->profile_image : "");
+            $list->setAttribute('participants_name', $participant ? $participant->name : "");
+        }
+
+        return $lists;
+    }
+
+    /**
+     * @param $user
+     * @return mixed
+     */
+    private function getChatLists($user)
+    {
+        return ChatLists::orWhere('constructor', $user)->orWhere('participants', $user)->orderBy('updated_at', 'DESC')->with('lastMessage')->get();
+    }
+
 }
