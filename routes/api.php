@@ -49,6 +49,12 @@ Route::group(['middleware' => 'jwt.auth.custom'], function () {
         Route::get('chat', 'ChatController@chatLists'); // 채팅목록 가져오기
         Route::post('chat/message', 'ChatController@store'); // 메세지 전송
         Route::get('chat/message/{chat_lists_id}', 'ChatController@messagelists'); // 대화 리스트
+        /*
+        --------------------------------------------------------------------------
+        | ... API
+        --------------------------------------------------------------------------
+        */
+        Route::get('users', 'UserController@userInfo'); // 채팅목록 가져오기
     });
 });
 
