@@ -41,11 +41,33 @@ class ChatService
      */
     public function createChatRoom(string $from, string $to) : int
     {
-        $this->chatLists->constructor = $from;
-        $this->chatLists->participants = $to;
-        $this->chatLists->save();
+        $chatId = $this->isChat($from, $to);
 
-        return $this->chatLists->id;
+        if ($chatId === false) {
+            $this->chatLists->constructor = $from;
+            $this->chatLists->participants = $to;
+            $this->chatLists->save();
+
+            return $this->chatLists->id;
+        } else {
+            return $chatId;
+        }
+    }
+
+    /**
+     * 채팅중인지 확인
+     * @param string $from
+     * @param string $to
+     * @return bool
+     */
+    public function isChat(string $from, string $to)
+    {
+        $chat = ChatLists::where('constructor', $from)->where('participants', $to)->first();
+
+        if (!$chat) {
+            return false;
+        }
+        return $chat->id;
     }
 
 
