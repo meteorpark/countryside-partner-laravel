@@ -78,7 +78,6 @@ class ChatService
 
         // TODO : DB설계 다시 해야 함.
         foreach ($lists as $list) {
-
             $constructor = null;
             $participant = null;
 
@@ -111,7 +110,12 @@ class ChatService
      */
     private function getChatLists($user)
     {
-        return ChatLists::orWhere('constructor', $user)->orWhere('participants', $user)->orderBy('updated_at', 'DESC')->with('lastMessage')->get();
+        return ChatLists::orWhere('constructor', $user)->
+                        orWhere('participants', $user)->
+                        orderBy('updated_at', 'DESC')->
+                        with(['lastMessage' => function ($query) {
+                            $query->orderBy('created_at', 'DESC')->groupBy('chat_lists_id');
+                        }])->
+                        get();
     }
-
 }
