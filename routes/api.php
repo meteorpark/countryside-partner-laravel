@@ -54,7 +54,8 @@ Route::group(['middleware' => 'jwt.auth.custom'], function () {
         | ... API
         --------------------------------------------------------------------------
         */
-        Route::get('users', 'UserController@userInfo'); // 채팅목록 가져오기
+        Route::get('users', 'UserController@userInfo'); // 회원정보 가져오기
+        Route::put('users', 'UserController@edit'); // 회원정보 수정하기
     });
 });
 
