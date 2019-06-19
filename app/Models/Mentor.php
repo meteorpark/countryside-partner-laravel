@@ -111,7 +111,7 @@ class Mentor extends Model implements JWTSubject
      */
     public function getProfileImageAttribute($value)
     {
-        return empty($value) ? $value = "/images/ico/homi.png" : $value;
+        return empty($value) ? $value = "/images/ico/homi_bg.png" : $value;
     }
 
     /**
