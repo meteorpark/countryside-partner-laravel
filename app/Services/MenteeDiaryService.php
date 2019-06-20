@@ -98,8 +98,8 @@ class MenteeDiaryService implements DiaryInterface
     {
         $menteeDiaries = $this->menteeDiary->where('mentee_srl', $mentee_srl)->orderBy('regdate', 'DESC')->paginate(15);
 
-        $dd =$this->menteeDiary->where('mentee_srl', $mentee_srl)->orderBy('regdate', 'DESC')->toSql();
-        echo $dd;
+        $dd =$this->menteeDiary->where('mentee_srl', $mentee_srl)->orderBy('regdate', 'DESC')->paginate(15);
+        dd($dd);
 
 
         $collection = collect($menteeDiaries);
