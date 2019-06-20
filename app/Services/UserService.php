@@ -50,7 +50,6 @@ class UserService
     {
         if ($request->user_type === "MENTOR") {
             $validator = Validator::make($request->all(), [
-                'id' => 'required',
                 'name' => 'required',
                 'birthday' => 'required',
                 'sex' => 'required|in:male,female',
