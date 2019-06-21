@@ -2,9 +2,8 @@
 
 namespace App\Providers;
 
-use App\Services\DiaryInterface;
-use App\Services\MenteeDiaryService;
-use App\Services\MentorDiaryService;
+use App\Models\ChatLists;
+use App\Observers\ChatListsObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,5 +36,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        ChatLists::observe(ChatListsObserver::class); //  호미차감
     }
 }
