@@ -90,14 +90,27 @@ class Mentee extends Model implements JWTSubject
         $this->attributes['phone'] = encrypt($value);
     }
 
+
     /**
      * @param $value
      * @return string
      */
     public function getProfileImageAttribute($value)
     {
-        return empty($value) ? $value = "/images/ico/homi_bg.png" : $value;
+        return empty($value) ? $value = "/images/ico/homi_bg.png" : config('nclound.ncloud_object_storage_host')."/".$value;
     }
+
+    /**
+     * @param $value
+     */
+    public function setProfileImageAttribute($value)
+    {
+        if ($value !== "File not allowed") {
+            $this->attributes['profile_image'] = $value;
+        }
+    }
+
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

@@ -82,11 +82,17 @@ class MenteeDiary extends Model
         return $regdate->format('Y-m-d H:i');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function mentee()
     {
         return $this->belongsTo(Mentee::class, 'mentee_srl');
     }
 
+    /**
+     * @param $value
+     */
     public function setImageAttribute($value)
     {
         if ($value !== "File not allowed") {
@@ -94,6 +100,10 @@ class MenteeDiary extends Model
         }
     }
 
+    /**
+     * @param $value
+     * @return string
+     */
     public function getImageAttribute($value)
     {
         if (!empty($value)) {

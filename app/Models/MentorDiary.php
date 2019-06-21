@@ -91,4 +91,27 @@ class MentorDiary extends Model
 
         return $regdate->format('Y-m-d H:i');
     }
+
+    /**
+     * @param $value
+     */
+    public function setImageAttribute($value)
+    {
+        if ($value !== "File not allowed") {
+            $this->attributes['image'] = $value;
+        }
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getImageAttribute($value)
+    {
+        if (!empty($value)) {
+            $value = config('nclound.ncloud_object_storage_host')."/".$value;
+        }
+
+        return $value;
+    }
 }

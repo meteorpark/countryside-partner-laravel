@@ -111,7 +111,17 @@ class Mentor extends Model implements JWTSubject
      */
     public function getProfileImageAttribute($value)
     {
-        return empty($value) ? $value = "/images/ico/homi_bg.png" : $value;
+        return empty($value) ? $value = "/images/ico/homi_bg.png" : config('nclound.ncloud_object_storage_host')."/".$value;
+    }
+
+    /**
+     * @param $value
+     */
+    public function setProfileImageAttribute($value)
+    {
+        if ($value !== "File not allowed") {
+            $this->attributes['profile_image'] = $value;
+        }
     }
 
     /**
