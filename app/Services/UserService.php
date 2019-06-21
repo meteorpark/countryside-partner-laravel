@@ -65,14 +65,46 @@ class UserService
 
             $this->editMentor($request);
         } else {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'birthday' => 'required',
+                'introduce' => 'required',
+                'address' => 'required',
+                'sex' => 'required|in:male,female',
+                'crops' => 'required',
+                'target_area' => 'required',
+            ]);
+            if ($validator->fails()) {
+                throw new MeteoException(101, $validator->errors());
+            }
+
+            $this->editMentee($request);
         }
     }
-
 
     /**
      * @param $request
      */
-    public function editMentor($request)
+    public function editMentee($request) : void
+    {
+        $mentee = Mentee::find($request->id);
+        $mentee->name = $request->name;
+        $mentee->birthday = $request->birthday;
+        $mentee->introduce = $request->introduce;
+        $mentee->address = $request->address;
+        $mentee->sex = $request->sex;
+        $mentee->crops = $request->crops;
+        $mentee->target_area = $request->target_area;
+
+        $image = $this->fileUploadService->uploadProfile($request->file('profile_image'));
+        empty($image) ? : $mentee->profile_image = $image;
+
+        $mentee->save();
+    }
+    /**
+     * @param $request
+     */
+    public function editMentor($request) : void
     {
         $mentor = Mentor::find($request->id);
         $mentor->name = $request->name;
