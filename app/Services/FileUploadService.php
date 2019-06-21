@@ -68,7 +68,7 @@ class FileUploadService
 
         if ($this->arrowExtension($file->getClientOriginalExtension())) {
             $filePath = $storageType . '/' . time() . $file->getClientOriginalName();
-            Storage::disk('ncloud')->put($filePath, file_get_contents($file));
+            Storage::disk('ncloud')->put($filePath, file_get_contents($file), 'public');
         } else {
             $filePath = "File not allowed";
         }
