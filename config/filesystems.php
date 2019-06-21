@@ -57,6 +57,7 @@ return [
             'version' => 'latest',
             'bucket' => env('NCLOUD_BUCKET'),
             'endpoint' => env('NCLOUD_URL'),
+            'visibility' => 'public-read',
         ],
 
         'public' => [

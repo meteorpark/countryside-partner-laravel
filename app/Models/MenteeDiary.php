@@ -86,4 +86,20 @@ class MenteeDiary extends Model
     {
         return $this->belongsTo(Mentee::class, 'mentee_srl');
     }
+
+    public function setImageAttribute($value)
+    {
+        if ($value !== "File not allowed") {
+            $this->attributes['image'] = $value;
+        }
+    }
+
+    public function getImageAttribute($value)
+    {
+        if (!empty($value)) {
+            $value = config('nclound.ncloud_object_storage_host')."/".$value;
+        }
+
+        return $value;
+    }
 }
