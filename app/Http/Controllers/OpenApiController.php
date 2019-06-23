@@ -106,7 +106,7 @@ class OpenApiController extends Controller
 
         $url = $this->openApiService->getSpecialCropsUrl(
             $data['year'],
-            $data['ctprvn'],
+            $data['ctprvn']
         );
 
         $response = $this->httpClient->get($url);
@@ -146,7 +146,7 @@ class OpenApiController extends Controller
         $url = $this->openApiService->getEmptyHousesUrl(
             $data['sidonm'],
             $data['gubuncd'],
-            $data['dealtypecd'],
+            $data['dealtypecd']
         );
         $response = $this->httpClient->get($url);
 
