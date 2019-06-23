@@ -56,7 +56,7 @@ class OpenApiService
     {
         $queryParams = [
             'YEAR' => 2014,
-            'CTPRVN' => urlencode($ctprvn),
+            'CTPRVN' => $ctprvn,
         ];
         if (!empty($fch_knd)) {
             $queryParams['FCH_KND'] = $fch_knd;
@@ -74,7 +74,7 @@ class OpenApiService
     public function getDictionaryUrl(string $clNm) : string
     {
         $queryParams = [
-            'CL_NM' => urlencode($clNm),
+            'CL_NM' => $clNm,
         ];
 
         return (string)Uri\Uri::createFromString($this->api_call_url)
@@ -93,7 +93,7 @@ class OpenApiService
     {
         $queryParams = [
             'YEAR' => $year,
-            'CTPRVN' => urlencode($ctprvn),
+            'CTPRVN' => $ctprvn,
         ];
 
         return (string)Uri\Uri::createFromString($this->api_call_url)
@@ -113,7 +113,7 @@ class OpenApiService
     public function getEmptyHousesUrl(string $sidonm, string $gubuncd, string $dealtypecd, string $limit = self::API_PAGE_LIMIT) : string
     {
         $queryParams = [
-            'SIDO_NM' => urlencode($sidonm),
+            'SIDO_NM' => $sidonm,
             'GUBUN_CD' => $gubuncd,
             'DEAL_TYPE_CD' => $dealtypecd,
         ];
