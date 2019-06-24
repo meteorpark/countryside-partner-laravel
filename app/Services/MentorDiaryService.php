@@ -60,6 +60,7 @@ class MentorDiaryService implements DiaryInterface
         $diary = $this->mentorDiary->with('mentor')->find($diary_srl);
 
         $diary->setAttribute('is_owner', false);
+        $diary->increment('view_count');
 
         if ($this->useJwt() === $diary->mentor_srl) {
             $diary->setAttribute('is_owner', true);

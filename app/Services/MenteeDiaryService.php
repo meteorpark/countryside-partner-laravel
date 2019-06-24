@@ -70,7 +70,7 @@ class MenteeDiaryService implements DiaryInterface
     public function getDiary(int $diary_srl)
     {
         $diary = $this->menteeDiary->with('mentee')->find($diary_srl);
-
+        $diary->increment('view_count');
         if ($diary) {
             if ($this->useJwt() === $diary->mentee_srl) {
                 $diary->setAttribute('is_owner', true);

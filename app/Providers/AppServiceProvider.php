@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\ChatLists;
+use App\Models\MentorDiary;
 use App\Observers\ChatListsObserver;
 use Illuminate\Support\ServiceProvider;
 
