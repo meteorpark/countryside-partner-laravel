@@ -45,7 +45,7 @@ class MenteeController extends Controller
      */
     protected function index()
     {
-        $mentees = Mentee::all();
+        $mentees = Mentee::orderBy('regdate', 'DESC')->paginate(21);
         return $mentees;
     }
 

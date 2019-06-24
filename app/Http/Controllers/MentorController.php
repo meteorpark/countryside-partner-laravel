@@ -26,8 +26,7 @@ class MentorController extends Controller
      */
     protected function index()
     {
-        $mentors = Mentor::all();
-
+        $mentors = Mentor::orderBy('regdate', 'DESC')->paginate(21);//21
         return $mentors;
     }
 
