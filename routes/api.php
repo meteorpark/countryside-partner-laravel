@@ -83,10 +83,9 @@ Route::group(['prefix' => 'openapi'], function () {
 
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::get('main', array(
-        'as' => 'main',
-        'uses' => 'MainController@index'
-    ));
+
+    Route::get('main', 'MainController@index');
+    Route::get('main/best-diaries', 'MainController@bestDiaries');
 
     Route::get('mentees', 'MenteeController@index'); // 멘티 전체 조회
     Route::get('mentees/{mentee_srl}', 'MenteeController@view'); // 멘티 프로필 조회
