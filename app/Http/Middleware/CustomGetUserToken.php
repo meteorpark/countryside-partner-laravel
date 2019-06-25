@@ -27,16 +27,18 @@ class CustomGetUserToken extends BaseMiddleware
         }
 
         $jwt = JWTAuth::parseToken()->getPayload();
+        $userInfo = null;
 
-        if ($jwt->get('user_type') === "MENTOR" && !Mentor::find($jwt->get('id'))) {
+        if ($jwt->get('user_type') === "MENTOR" && !$userInfo = Mentor::find($jwt->get('id'))) {
             throw new JWTException('User not found', 404);
-        } elseif ($jwt->get('user_type') === "MENTEE" && !Mentee::find($jwt->get('id'))) {
+        } elseif ($jwt->get('user_type') === "MENTEE" && !$userInfo = Mentee::find($jwt->get('id'))) {
             throw new JWTException('User not found', 404);
         }
 
         $request->merge([
             'user_type' => $jwt->get('user_type'),
-            'id' => $jwt->get('id')
+            'id' => $jwt->get('id'),
+            'homi' => $userInfo->homi,
         ]);
 
         return $next($request);

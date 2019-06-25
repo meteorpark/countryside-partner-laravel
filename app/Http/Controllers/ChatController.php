@@ -30,21 +30,21 @@ class ChatController extends Controller
     {
         $this->chatService = $chatService;
     }
+
     /**
      * @param StoreChatRequest $request
      * @return mixed
+     * @throws MeteoException
      */
     protected function store(StoreChatRequest $request)
     {
-        $chat_lists_id = null;
         $data = $request->all();
-        if (empty($data['chat_lists_id'])) { // 채팅방 신규생성
-            $chat_lists_id = $this->chatService->createChatRoom($data['from'], $data['to']);
-        } else {
-            $chat_lists_id = $data['chat_lists_id'];
+
+        if ($data['homi'] < 1) {
+            throw new MeteoException(3);
         }
 
-        $message_id = $this->chatService->message($chat_lists_id, $data['from'], $data['to'], $data['message']);
+        $message_id = $this->chatService->sendMessage($data);
 
         return $this->show($message_id);
     }

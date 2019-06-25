@@ -45,6 +45,12 @@ class MeteoException extends Exception
                 $this->exceptionInfo['message'] = '아이디 혹은 비밀번호가 일치하지 않습니다.';
                 break;
 
+            case 3 :
+
+                $this->exceptionInfo['code'] = $code;
+                $this->exceptionInfo['message'] = '보유한 호미가 부족 합니다.';
+                break;
+
             case 101 :
 
                 $this->exceptionInfo['code'] = $code;

@@ -8,8 +8,15 @@ use JWTAuth;
 use Auth;
 use Exception;
 
+/**
+ * Trait JwtTrait
+ * @package App\Traits
+ */
 trait JwtTrait
 {
+    /**
+     * @return |null
+     */
     public function useJwt()
     {
         if (app('request')->header('Authorization')) {

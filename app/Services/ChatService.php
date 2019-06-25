@@ -70,15 +70,14 @@ class ChatService
         return $chat->id;
     }
 
-
     /**
-     * @param int $chat_lists_id
+     * @param string $chat_lists_id
      * @param string $from
      * @param string $to
      * @param string $message
-     * @return int
+     * @return string
      */
-    public function message(int $chat_lists_id, string $from, string $to, string $message) : int
+    public function message(string $chat_lists_id, string $from, string $to, string $message) : string
     {
         $this->chatConversations->chat_lists_id = $chat_lists_id;
         $this->chatConversations->from = $from;
@@ -91,6 +90,7 @@ class ChatService
 
 
     /**
+     * 대화내요 가져오기
      * @param $user
      * @return mixed
      */
@@ -127,6 +127,7 @@ class ChatService
     }
 
     /**
+     * 채팅방 리스트 가져오기
      * @param $user
      * @return mixed
      */
@@ -139,5 +140,24 @@ class ChatService
                             $query->orderBy('created_at', 'DESC')->groupBy('chat_lists_id');
                         }])->
                         get();
+    }
+
+    /**
+     * 메세지 전송하기
+     * @param array $data
+     * @return string
+     */
+    public function sendMessage(array $data)
+    {
+        $chat_lists_id = null;
+
+        if (empty($data['chat_lists_id'])) { // 채팅방 신규생성
+
+            $chat_lists_id = $this->createChatRoom($data['from'], $data['to']);
+        } else {
+            $chat_lists_id = $data['chat_lists_id'];
+        }
+
+        return $this->message($chat_lists_id, $data['from'], $data['to'], $data['message']);
     }
 }
