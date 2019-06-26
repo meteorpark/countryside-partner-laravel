@@ -209,6 +209,9 @@ class OpenApiController extends Controller
             $eduFarms['data'][$i]['locplc'] = (string)$item->locplc;
             $eduFarms['data'][$i]['telno'] = (string)$item->telno;
             $eduFarms['data'][$i]['imgUrl'] = (string)$item->imgUrl;
+            $eduFarms['data'][$i]['imgUrl'] = (string)$item->imgUrl;
+            $eduFarms['data'][$i]['thema'] = (string)$item->thema;
+
             $i++;
         }
 
