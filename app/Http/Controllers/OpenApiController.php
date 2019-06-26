@@ -35,10 +35,10 @@ class OpenApiController extends Controller
 
     /**
      * @param Request $request
-     * @return mixed
+     * @return array
      * @throws MeteoException
      */
-    protected function machines(Request $request)
+    protected function machines(Request $request) : array
     {
         $data = $request->all();
 
@@ -65,10 +65,10 @@ class OpenApiController extends Controller
 
     /**
      * @param Request $request
-     * @return mixed
+     * @return array
      * @throws MeteoException
      */
-    protected function dictionary(Request $request)
+    protected function dictionary(Request $request) : array
     {
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -90,10 +90,10 @@ class OpenApiController extends Controller
 
     /**
      * @param Request $request
-     * @return mixed
+     * @return array
      * @throws MeteoException
      */
-    protected function specialCrops(Request $request)
+    protected function specialCrops(Request $request) : array
     {
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -127,10 +127,10 @@ class OpenApiController extends Controller
 
     /**
      * @param Request $request
-     * @return mixed
+     * @return array
      * @throws MeteoException
      */
-    protected function emptyHouses(Request $request)
+    protected function emptyHouses(Request $request) : array
     {
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -169,10 +169,10 @@ class OpenApiController extends Controller
 
     /**
      * @param Request $request
-     * @return mixed
+     * @return array
      * @throws MeteoException
      */
-    protected function educationFarms(Request $request)
+    protected function educationFarms(Request $request) : array
     {
         $data = $request->all();
 
@@ -197,20 +197,53 @@ class OpenApiController extends Controller
         );
 
         $xml = simplexml_load_string($this->httpClient->get($url)->getBody()->getContents());
-        $eduFarms = [];
         $i = 0;
+        $eduFarms = [];
+        $eduFarms['data'] = [];
+        $eduFarms['totalCount'] = (int)$xml->body[0]->items[0]->totalCount;
+
         foreach($xml->body[0]->items[0]->item as $item) {
 
-            $eduFarms[$i]['cntntsNo'] = (string)$item->cntntsNo;
-            $eduFarms[$i]['cntntsSj'] = (string)$item->cntntsSj;
-            $eduFarms[$i]['adstrdName'] = (string)$item->adstrdName;
-            $eduFarms[$i]['locplc'] = (string)$item->locplc;
-            $eduFarms[$i]['telno'] = (string)$item->telno;
-            $eduFarms[$i]['thumbImgUrl'] = (string)$item->thumbImgUrl;
+            $eduFarms['data'][$i]['cntntsNo'] = (string)$item->cntntsNo;
+            $eduFarms['data'][$i]['cntntsSj'] = (string)$item->cntntsSj;
+            $eduFarms['data'][$i]['adstrdName'] = (string)$item->adstrdName;
+            $eduFarms['data'][$i]['locplc'] = (string)$item->locplc;
+            $eduFarms['data'][$i]['telno'] = (string)$item->telno;
+            $eduFarms['data'][$i]['imgUrl'] = (string)$item->imgUrl;
             $i++;
         }
 
         return $eduFarms;
+    }
+
+
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    protected function weekFarmInfo(Request $request) : array
+    {
+        $data = $request->all();
+
+        $url = $this->openApiService->getWeekFarmInfo(
+            $data['page'],
+        );
+
+        $xml = simplexml_load_string($this->httpClient->get($url)->getBody()->getContents());
+
+        $i = 0;
+        $info = [];
+        foreach($xml->body[0]->items[0]->item as $item) {
+
+            $info[$i]['subject'] = (string)$item->subject;
+            $info[$i]['regDt'] = (string)$item->regDt;
+            $info[$i]['fileName'] = (string)$item->fileName;
+            $info[$i]['downUrl'] = (string)$item->downUrl;
+            $i++;
+        }
+
+        return $info;
     }
 
 

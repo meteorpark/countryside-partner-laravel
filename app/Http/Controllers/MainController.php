@@ -32,7 +32,7 @@ class MainController extends Controller
     {
         $diaries = MentorDiary::orderBy('view_count', 'DESC')
             ->orderBy('regdate', 'DESC')
-            ->limit(4)
+            ->limit(3)
             ->get();
 
         return $diaries;

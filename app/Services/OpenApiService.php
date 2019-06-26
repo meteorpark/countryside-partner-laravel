@@ -19,7 +19,6 @@ class OpenApiService
 
     /** @var string  */
     private $api_call_url = 'http://211.237.50.150:7080';
-
     /**
      * @var string
      */
@@ -59,6 +58,10 @@ class OpenApiService
      *
      */
     const API_NONGSARO_EDUCATION_FARMS_LISTS = "fmlgEdcFarmm/fmlgEdcFarmmList"; // 농촌교육농장 리스트 불러오기 및 검색
+    /**
+     *
+     */
+    const API_NONGSARO_WEEK_FARM_INFO = "weekFarmInfo/weekFarmInfoList"; // 주간농사정보
 
 
 
@@ -144,7 +147,7 @@ class OpenApiService
      * @param string $sText
      * @return string
      */
-    public function getEducationFarms(int $page = 1, string $sType, string $sText)
+    public function getEducationFarms(int $page, string $sType, string $sText) : string
     {
         $queryParams = [
             'apiKey' => $this->api_nongsaro_edcfarm_key,
@@ -158,6 +161,22 @@ class OpenApiService
 
         return (string)Uri\Uri::createFromString($this->api_call_url_nongsaro)
             ->withPath("/service/".self::API_NONGSARO_EDUCATION_FARMS_LISTS)
+            ->withQuery(Uri\build_query($queryParams));
+    }
+
+    /**
+     * @param int $page
+     * @return string
+     */
+    public function getWeekFarmInfo(int $page) : string
+    {
+        $queryParams = [
+            'apiKey' => $this->api_nongsaro_edcfarm_key,
+            'pageNo' => $page,
+        ];
+
+        return (string)Uri\Uri::createFromString($this->api_call_url_nongsaro)
+            ->withPath("/service/".self::API_NONGSARO_WEEK_FARM_INFO)
             ->withQuery(Uri\build_query($queryParams));
     }
 }
