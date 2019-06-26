@@ -229,7 +229,7 @@ class OpenApiController extends Controller
         $data = $request->all();
 
         $url = $this->openApiService->getWeekFarmInfo(
-            $data['page'],
+            $data['page']
         );
 
         $xml = simplexml_load_string($this->httpClient->get($url)->getBody()->getContents());
