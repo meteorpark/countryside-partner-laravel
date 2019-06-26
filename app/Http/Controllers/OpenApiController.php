@@ -114,7 +114,6 @@ class OpenApiController extends Controller
         $responseBody = json_decode($response->getBody(), true);
 
         if ($responseBody[OpenApiService::API_GRID_SPECIAL_CROPS]['totalCnt'] > 50) {
-
             $url = $this->openApiService->getSpecialCropsUrl(
                 $data['year'],
                 $data['ctprvn'],
@@ -155,7 +154,6 @@ class OpenApiController extends Controller
 
 
         if ($responseBody[OpenApiService::API_GRID_EMPTY_HOUSES]['totalCnt'] > 50) {
-
             $url = $this->openApiService->getEmptyHousesUrl(
                 $data['sidonm'],
                 $data['gubuncd'],
@@ -169,8 +167,51 @@ class OpenApiController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return mixed
+     * @throws MeteoException
+     */
+    protected function educationFarms(Request $request)
+    {
+        $data = $request->all();
 
+        if (!empty($data['sText'])) {
+            $validator = Validator::make($data, [
+                'sText' => 'required',
+                'sType' => 'required|in:sThema,sLocplc,sCntntsSj', // sLocplc : 지역명,  sCntntsSj : 제목명, sThema : 주제명
+            ]);
+            if ($validator->fails()) {
+                throw new MeteoException(101, $validator->errors());
+            }
+        }else {
+
+            $data['sType'] = "";
+            $data['sText'] = "";
+        }
+
+        $url = $this->openApiService->getEducationFarms(
+            $data['page'],
+            $data['sType'],
+            $data['sText']
+        );
+
+        $xml = simplexml_load_string($this->httpClient->get($url)->getBody()->getContents());
+        $eduFarms = [];
+        $i = 0;
+        foreach($xml->body[0]->items[0]->item as $item) {
+
+            $eduFarms[$i]['cntntsNo'] = (string)$item->cntntsNo;
+            $eduFarms[$i]['cntntsSj'] = (string)$item->cntntsSj;
+            $eduFarms[$i]['adstrdName'] = (string)$item->adstrdName;
+            $eduFarms[$i]['locplc'] = (string)$item->locplc;
+            $eduFarms[$i]['telno'] = (string)$item->telno;
+            $eduFarms[$i]['thumbImgUrl'] = (string)$item->thumbImgUrl;
+            $i++;
+        }
+
+        return $eduFarms;
+    }
 
 
 }
-

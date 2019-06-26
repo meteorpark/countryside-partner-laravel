@@ -72,6 +72,7 @@ Route::group(['prefix' => 'openapi'], function () {
     Route::get('dictionary', 'OpenApiController@dictionary'); // 우리말 농업용어
     Route::get('special-crops', 'OpenApiController@specialCrops'); // 특용 작물 생산 통계
     Route::get('empty-houses', 'OpenApiController@emptyHouses'); // 농촌 빈집 정보
+    Route::get('education-farms', 'OpenApiController@educationFarms'); // 농촌교육농장
 
 
 // 서비스 정지 됨.
