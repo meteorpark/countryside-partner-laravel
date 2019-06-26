@@ -7,7 +7,6 @@ use App\Services\OpenApiService;
 use GuzzleHttp\Client as HttpClient;
 use Illuminate\Http\Request;
 use Validator;
-use Exception;
 
 /**
  * Class OpenApiController
