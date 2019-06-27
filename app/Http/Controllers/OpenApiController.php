@@ -7,6 +7,7 @@ use App\Services\OpenApiService;
 use GuzzleHttp\Client as HttpClient;
 use Illuminate\Http\Request;
 use Validator;
+use Twitter;
 
 /**
  * Class OpenApiController
@@ -282,4 +283,48 @@ class OpenApiController extends Controller
 
         return $eduFarmsDetail;
     }
+
+
+    /**
+     * @return array
+     */
+    protected function sns() : array
+    {
+        return array_merge($this->naverBlogRss(), $this->twitter());
+    }
+
+    /**
+     * @return array
+     */
+    protected function naverBlogRss() : array
+    {
+        $url = $this->openApiService->getNaverBlogRss();
+
+        $xml = simplexml_load_string($this->httpClient->get($url)->getBody()->getContents());
+
+        $i = 0;
+        $contens = [];
+        $contens['naverblog'] = [];
+        foreach($xml->channel->item as $item){
+
+            $contens['naverblog'][$i]['link'] = (string)$item->link;
+            $contens['naverblog'][$i]['description'] = (string)strip_tags($item->description);
+            $contens['naverblog'][$i]['pubDate'] = (string)$item->pubDate;
+            $i++;
+
+            if($i > 3)break;
+        }
+        return $contens;
+    }
+
+    /**
+     * @return array
+     */
+    protected function twitter() : array
+    {
+        $timelines = Twitter::getUserTimeline(['screen_name' => 'love_rda', 'count' => 5, 'format' => 'array']);
+
+        return $this->openApiService->reBuildTwitterTimeLines($timelines);
+    }
 }
+

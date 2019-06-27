@@ -77,6 +77,11 @@ Route::group(['prefix' => 'openapi'], function () {
     Route::get('weekFarmInfo', 'OpenApiController@weekFarmInfo'); // 주간농사정보
 
 
+    Route::get('sns', 'OpenApiController@sns'); // 농촌진흥청 트위터, 네이버블로그RSS
+//    Route::get('naverBlogRss', 'OpenApiController@naverBlogRss'); // 농촌진흥청 네이버블로그 RSS
+//    Route::get('twitter', 'OpenApiController@twitter'); // 농촌진흥청 트위터
+
+
 // 서비스 정지 됨.
 //    Route::get('chat/intro', 'OpenApiChatController@intro'); // 귀농귀촌 지능형 상담 - 인트로
 //    Route::get('chat/room', 'OpenApiChatController@createRoom'); // 귀농귀촌 지능형 상담 - 채팅방 생성

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\ChatConversations;
 use App\Observers\ChatConversationsObserver;
 use Illuminate\Support\ServiceProvider;
+use Thujohn\Twitter\TwitterServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,8 +25,7 @@ class AppServiceProvider extends ServiceProvider
 
 
 
-
-        $this->app->register(ResponseMacroServiceProvider::class);
+        $this->app->register(TwitterServiceProvider::class);
     }
 
     /**

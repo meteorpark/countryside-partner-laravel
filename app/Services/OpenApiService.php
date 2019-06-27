@@ -25,6 +25,11 @@ class OpenApiService
     private $api_call_url_nongsaro = 'http://api.nongsaro.go.kr';
 
     /**
+     * @var string
+     */
+    private $api_call_url_naver_blog_rss = 'https://rss.blog.naver.com';
+
+    /**
      * OpenApiService constructor.
      */
     public function __construct()
@@ -68,7 +73,10 @@ class OpenApiService
      */
     const API_NONGSARO_WEEK_FARM_INFO = "weekFarmInfo/weekFarmInfoList"; // 주간농사정보
 
-
+    /**
+     *
+     */
+    const API_NAVER_BLOG_RSS = "rda2448.xml"; // 네이버 블로그 RSS 2.0
 
 
     /**
@@ -202,4 +210,36 @@ class OpenApiService
             ->withPath("/service/".self::API_NONGSARO_EDUCATION_FARMS_DETAIL)
             ->withQuery(Uri\build_query($queryParams));
     }
+
+    /**
+     * @return string
+     */
+    public function getNaverBlogRss() : string
+    {
+        return (string)Uri\Uri::createFromString($this->api_call_url_naver_blog_rss)
+            ->withPath("/".self::API_NAVER_BLOG_RSS);
+    }
+
+
+    /**
+     * @param array $timelines
+     * @return array
+     */
+    public function reBuildTwitterTimeLines(array $timelines) : array
+    {
+        $build = [];
+        $build['twitter'] = [];
+        $i = 0;
+        foreach ($timelines as $timeline) {
+
+            $build['twitter'][$i]['id'] = $timeline['id'];
+            $build['twitter'][$i]['id_str'] = $timeline['id_str'];
+            $build['twitter'][$i]['text'] = $timeline['text'];
+            $build['twitter'][$i]['created_at'] = $timeline['created_at'];
+            $build['twitter'][$i]['url'] = $timeline['entities']['urls'][0]['url'];
+            $i++;
+        }
+        return $build;
+    }
+
 }
