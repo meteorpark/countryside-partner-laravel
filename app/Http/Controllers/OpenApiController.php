@@ -272,7 +272,7 @@ class OpenApiController extends Controller
         $eduFarmsDetail['url'] = (string)$item->url;
         $eduFarmsDetail['telno'] = (string)$item->telno;
         $eduFarmsDetail['crtfcYearInfo'] = (string)$item->crtfcYearInfo;
-        $eduFarmsDetail['cn'] = (string)$item->cn;
+        $eduFarmsDetail['cn'] = (string)strip_tags($item->cn);
         $eduFarmsDetail['imgUrl1'] = (string)$item->imgUrl1;
         $eduFarmsDetail['imgUrl2'] = (string)$item->imgUrl2;
         $eduFarmsDetail['imgUrl3'] = (string)$item->imgUrl3;
