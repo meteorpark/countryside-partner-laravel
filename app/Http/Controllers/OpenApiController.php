@@ -322,7 +322,7 @@ class OpenApiController extends Controller
      */
     protected function twitter() : array
     {
-        $timelines = Twitter::getUserTimeline(['screen_name' => 'love_rda', 'count' => 5, 'format' => 'array']);
+        $timelines = Twitter::getUserTimeline(['screen_name' => 'love_rda', 'count' => 4, 'format' => 'array']);
 
         return $this->openApiService->reBuildTwitterTimeLines($timelines);
     }
