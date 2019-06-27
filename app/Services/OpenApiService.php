@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use League\Uri;
 
 /**
@@ -231,15 +232,13 @@ class OpenApiService
         $build['twitter'] = [];
         $i = 0;
         foreach ($timelines as $timeline) {
-
             $build['twitter'][$i]['id'] = $timeline['id'];
             $build['twitter'][$i]['id_str'] = $timeline['id_str'];
             $build['twitter'][$i]['text'] = $timeline['text'];
-            $build['twitter'][$i]['created_at'] = $timeline['created_at'];
             $build['twitter'][$i]['url'] = $timeline['entities']['urls'][0]['url'];
+            $build['twitter'][$i]['created_at'] = Carbon::parse($timeline['created_at'])->format('Y-m-d H:i:s');
             $i++;
         }
         return $build;
     }
-
 }

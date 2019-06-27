@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\MeteoException;
 use App\Services\OpenApiService;
+use Carbon\Carbon;
 use GuzzleHttp\Client as HttpClient;
 use Illuminate\Http\Request;
 use Validator;
@@ -309,7 +310,7 @@ class OpenApiController extends Controller
 
             $contens['naverblog'][$i]['link'] = (string)$item->link;
             $contens['naverblog'][$i]['description'] = (string)strip_tags($item->description);
-            $contens['naverblog'][$i]['pubDate'] = (string)$item->pubDate;
+            $contens['naverblog'][$i]['pubDate'] = (string)Carbon::parse($item->pubDate)->format('Y-m-d H:i:s');
             $i++;
 
             if($i > 3)break;
