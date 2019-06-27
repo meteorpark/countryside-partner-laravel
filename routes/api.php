@@ -72,7 +72,8 @@ Route::group(['prefix' => 'openapi'], function () {
     Route::get('dictionary', 'OpenApiController@dictionary'); // 우리말 농업용어
     Route::get('special-crops', 'OpenApiController@specialCrops'); // 특용 작물 생산 통계
     Route::get('empty-houses', 'OpenApiController@emptyHouses'); // 농촌 빈집 정보
-    Route::get('education-farms', 'OpenApiController@educationFarms'); // 농촌교육농장
+    Route::get('educationFarms', 'OpenApiController@educationFarms'); // 농촌교육농장
+    Route::get('educationFarms/{cntntsNo}', 'OpenApiController@educationFarmsDetail'); // 농촌교육농장 상세
     Route::get('weekFarmInfo', 'OpenApiController@weekFarmInfo'); // 주간농사정보
 
 
@@ -85,7 +86,6 @@ Route::group(['prefix' => 'openapi'], function () {
 
 
 Route::group(['prefix' => 'v1'], function () {
-
     Route::get('main', 'MainController@index');
     Route::get('main/best-diaries', 'MainController@bestDiaries');
 
@@ -115,9 +115,3 @@ Route::group(['prefix' => 'v1'], function () {
         'uses' => 'MenteeController@store'
     ));
 });
-
-
-
-
-
-

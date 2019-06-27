@@ -15,7 +15,7 @@ class OpenApiService
     /**
      * @var \Illuminate\Config\Repository|mixed|null
      */
-    private $api_nongsaro_edcfarm_key = null;
+    private $api_nongsaro_key = null;
 
     /** @var string  */
     private $api_call_url = 'http://211.237.50.150:7080';
@@ -30,7 +30,7 @@ class OpenApiService
     public function __construct()
     {
         $this->api_key = config('open_api.key');
-        $this->api_nongsaro_edcfarm_key = config('open_api.nongsaro_edcfarm_key');
+        $this->api_nongsaro_key = config('open_api.api_nongsaro_key');
     }
 
     /**
@@ -58,10 +58,16 @@ class OpenApiService
      *
      */
     const API_NONGSARO_EDUCATION_FARMS_LISTS = "fmlgEdcFarmm/fmlgEdcFarmmList"; // 농촌교육농장 리스트 불러오기 및 검색
+
+    /**
+     *
+     */
+    const API_NONGSARO_EDUCATION_FARMS_DETAIL = "fmlgEdcFarmm/fmlgEdcFarmmDtl"; // 농촌교육농장 상세
     /**
      *
      */
     const API_NONGSARO_WEEK_FARM_INFO = "weekFarmInfo/weekFarmInfoList"; // 주간농사정보
+
 
 
 
@@ -150,7 +156,7 @@ class OpenApiService
     public function getEducationFarms(int $page, string $sType, string $sText) : string
     {
         $queryParams = [
-            'apiKey' => $this->api_nongsaro_edcfarm_key,
+            'apiKey' => $this->api_nongsaro_key,
             'pageNo' => $page,
         ];
 
@@ -171,12 +177,29 @@ class OpenApiService
     public function getWeekFarmInfo(int $page) : string
     {
         $queryParams = [
-            'apiKey' => $this->api_nongsaro_edcfarm_key,
+            'apiKey' => $this->api_nongsaro_key,
             'pageNo' => $page,
         ];
 
         return (string)Uri\Uri::createFromString($this->api_call_url_nongsaro)
             ->withPath("/service/".self::API_NONGSARO_WEEK_FARM_INFO)
+            ->withQuery(Uri\build_query($queryParams));
+    }
+
+
+    /**
+     * @param int $cntntsNo
+     * @return string
+     */
+    public function getEducationFarmsDetail(int $cntntsNo) : string
+    {
+        $queryParams = [
+            'apiKey' => $this->api_nongsaro_key,
+            'cntntsNo' => $cntntsNo,
+        ];
+
+        return (string)Uri\Uri::createFromString($this->api_call_url_nongsaro)
+            ->withPath("/service/".self::API_NONGSARO_EDUCATION_FARMS_DETAIL)
             ->withQuery(Uri\build_query($queryParams));
     }
 }

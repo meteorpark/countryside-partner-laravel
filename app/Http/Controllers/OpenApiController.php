@@ -183,8 +183,7 @@ class OpenApiController extends Controller
             if ($validator->fails()) {
                 throw new MeteoException(101, $validator->errors());
             }
-        }else {
-
+        } else {
             $data['sType'] = "";
             $data['sText'] = "";
         }
@@ -201,15 +200,14 @@ class OpenApiController extends Controller
         $eduFarms['data'] = [];
         $eduFarms['totalCount'] = (int)$xml->body[0]->items[0]->totalCount;
 
-        foreach($xml->body[0]->items[0]->item as $item) {
-
+        foreach ($xml->body[0]->items[0]->item as $item) {
             $eduFarms['data'][$i]['cntntsNo'] = (string)$item->cntntsNo;
             $eduFarms['data'][$i]['cntntsSj'] = (string)$item->cntntsSj;
             $eduFarms['data'][$i]['adstrdName'] = (string)$item->adstrdName;
             $eduFarms['data'][$i]['locplc'] = (string)$item->locplc;
             $eduFarms['data'][$i]['telno'] = (string)$item->telno;
             $eduFarms['data'][$i]['imgUrl'] = (string)$item->imgUrl;
-            $eduFarms['data'][$i]['imgUrl'] = (string)$item->imgUrl;
+            $eduFarms['data'][$i]['thumbImgUrl'] = (string)$item->thumbImgUrl;
             $eduFarms['data'][$i]['thema'] = (string)$item->thema;
 
             $i++;
@@ -236,8 +234,7 @@ class OpenApiController extends Controller
 
         $i = 0;
         $info = [];
-        foreach($xml->body[0]->items[0]->item as $item) {
-
+        foreach ($xml->body[0]->items[0]->item as $item) {
             $info[$i]['subject'] = (string)$item->subject;
             $info[$i]['regDt'] = (string)$item->regDt;
             $info[$i]['fileName'] = (string)$item->fileName;
@@ -248,5 +245,41 @@ class OpenApiController extends Controller
         return $info;
     }
 
+    /**
+     * @param $cntntsNo
+     * @return array
+     * @throws MeteoException
+     */
+    protected function educationFarmsDetail($cntntsNo) : array
+    {
+        if (empty($cntntsNo)) {
+            throw new MeteoException(101);
+        }
 
+        $url = $this->openApiService->getEducationFarmsDetail(
+            $cntntsNo
+        );
+
+        $xml = simplexml_load_string($this->httpClient->get($url)->getBody()->getContents());
+
+        $eduFarmsDetail = [];
+        $item = $xml->body[0]->item[0];
+        $eduFarmsDetail['cntntsNo'] = (string)$item->cntntsNo;
+        $eduFarmsDetail['cntntsSj'] = (string)$item->cntntsSj;
+        $eduFarmsDetail['locplc'] = (string)$item->locplc;
+        $eduFarmsDetail['thema'] = (string)$item->thema;
+        $eduFarmsDetail['appnYear'] = (string)$item->appnYear;
+        $eduFarmsDetail['url'] = (string)$item->url;
+        $eduFarmsDetail['telno'] = (string)$item->telno;
+        $eduFarmsDetail['crtfcYearInfo'] = (string)$item->crtfcYearInfo;
+        $eduFarmsDetail['cn'] = (string)$item->cn;
+        $eduFarmsDetail['imgUrl1'] = (string)$item->imgUrl1;
+        $eduFarmsDetail['imgUrl2'] = (string)$item->imgUrl2;
+        $eduFarmsDetail['imgUrl3'] = (string)$item->imgUrl3;
+        $eduFarmsDetail['imgUrl4'] = (string)$item->imgUrl4;
+        $eduFarmsDetail['imgUrl5'] = (string)$item->imgUrl5;
+        $eduFarmsDetail['imgUrl6'] = (string)$item->imgUrl6;
+
+        return $eduFarmsDetail;
+    }
 }
