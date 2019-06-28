@@ -292,11 +292,11 @@ class OpenApiController extends Controller
 
 
     /**
-     * @return array
+     * @return object
      */
-    protected function sns() : array
+    protected function sns() : object
     {
-        return Sns::orderBy('text_created_at', 'DESC')->orderBy('sns_type', 'ASC')->get();
+        return Sns::orderBy('sns_type', 'ASC')->orderBy('text_created_at', 'DESC')->get();
     }
 
     /**
