@@ -27,11 +27,11 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function (OpenApiController $openApiController) {
             $openApiController->naverBlogRss();
-        })->everyMinute(); // everyThirtyMinutes()
+        })->hourly();
 
         $schedule->call(function (OpenApiController $openApiController) {
             $openApiController->twitter();
-        })->everyMinute();
+        })->hourly();
     }
 
     /**
