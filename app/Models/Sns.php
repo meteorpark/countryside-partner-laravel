@@ -29,7 +29,7 @@ class Sns extends Model
      * @param $value
      * @return string
      */
-    public function getTextCreatedAtAttribute($value)
+    public function getTextCreatedAtAttribute($value) : string
     {
         return $this->dateTimeViewer(Carbon::parse($value)->timestamp);
     }
@@ -38,7 +38,7 @@ class Sns extends Model
      * @param $time
      * @return string
      */
-    public function dateTimeViewer($time)
+    public function dateTimeViewer($time) : string
     {
         $timeLater = time() - $time;
         if ($timeLater < 60) {
