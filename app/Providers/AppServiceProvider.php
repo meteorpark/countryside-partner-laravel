@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
 
 
 
+        $this->app->register(ResponseMacroServiceProvider::class);
         $this->app->register(TwitterServiceProvider::class);
     }
 
