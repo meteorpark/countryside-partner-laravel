@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\MeteoException;
+use App\Models\Sns;
 use App\Services\OpenApiService;
+use App\Traits\SnsCrawler;
 use Carbon\Carbon;
 use GuzzleHttp\Client as HttpClient;
 use Illuminate\Http\Request;
@@ -16,6 +18,9 @@ use Twitter;
  */
 class OpenApiController extends Controller
 {
+
+    use SnsCrawler;
+
     /** @var HttpClient */
     private $httpClient;
 
@@ -291,41 +296,30 @@ class OpenApiController extends Controller
      */
     protected function sns() : array
     {
-        return array_merge($this->naverBlogRss(), $this->twitter());
+        return Sns::orderBy('text_created_at', 'DESC')->orderBy('sns_type', 'ASC')->get();
     }
 
     /**
-     * @return array
+     *
      */
-    protected function naverBlogRss() : array
+    public function naverBlogRss() : void
     {
         $url = $this->openApiService->getNaverBlogRss();
 
         $xml = simplexml_load_string($this->httpClient->get($url)->getBody()->getContents());
 
-        $i = 0;
-        $contens = [];
-        $contens['naverblog'] = [];
-        foreach($xml->channel->item as $item){
-
-            $contens['naverblog'][$i]['link'] = (string)$item->link;
-            $contens['naverblog'][$i]['description'] = (string)strip_tags($item->description);
-            $contens['naverblog'][$i]['pubDate'] = (string)Carbon::parse($item->pubDate)->format('Y-m-d H:i:s');
-            $i++;
-
-            if($i > 3)break;
-        }
-        return $contens;
+        $this->crawlerNaverBlog($xml);
     }
 
     /**
-     * @return array
+     *
      */
-    protected function twitter() : array
+    public function twitter() : void
     {
         $timelines = Twitter::getUserTimeline(['screen_name' => 'love_rda', 'count' => 4, 'format' => 'array']);
 
-        return $this->openApiService->reBuildTwitterTimeLines($timelines);
+        $this->crawlerTwitter($timelines);
     }
+
 }
 

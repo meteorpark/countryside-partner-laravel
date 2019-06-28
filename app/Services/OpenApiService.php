@@ -220,25 +220,4 @@ class OpenApiService
         return (string)Uri\Uri::createFromString($this->api_call_url_naver_blog_rss)
             ->withPath("/".self::API_NAVER_BLOG_RSS);
     }
-
-
-    /**
-     * @param array $timelines
-     * @return array
-     */
-    public function reBuildTwitterTimeLines(array $timelines) : array
-    {
-        $build = [];
-        $build['twitter'] = [];
-        $i = 0;
-        foreach ($timelines as $timeline) {
-            $build['twitter'][$i]['id'] = $timeline['id'];
-            $build['twitter'][$i]['id_str'] = $timeline['id_str'];
-            $build['twitter'][$i]['text'] = $timeline['text'];
-            $build['twitter'][$i]['url'] = $timeline['entities']['urls'][0]['url'];
-            $build['twitter'][$i]['created_at'] = Carbon::parse($timeline['created_at'])->format('Y-m-d H:i:s');
-            $i++;
-        }
-        return $build;
-    }
 }
