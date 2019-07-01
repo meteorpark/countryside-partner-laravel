@@ -37,7 +37,7 @@ trait SnsCrawler
             $this->createSns($twitter, $this->sns_type_twitter);
         }
 
-        $this->keepContentFresh($this->sns_type_naver_blog);
+        $this->keepContentFresh($this->sns_type_twitter);
     }
     
     /**
