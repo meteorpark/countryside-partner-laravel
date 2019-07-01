@@ -316,7 +316,7 @@ class OpenApiController extends Controller
      */
     public function twitter() : void
     {
-        $timelines = Twitter::getUserTimeline(['screen_name' => 'love_rda', 'count' => 3, 'format' => 'array']);
+        $timelines = Twitter::getUserTimeline(['screen_name' => 'love_rda', 'count' => 5, 'format' => 'array']);
 
         $this->crawlerTwitter($timelines);
     }

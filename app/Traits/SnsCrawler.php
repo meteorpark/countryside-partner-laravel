@@ -31,8 +31,18 @@ trait SnsCrawler
     {
         $twitter = [];
         foreach ($timelines as $timeline) {
+
+
             $twitter['text'] = $timeline['text'];
-            $twitter['url'] = $timeline['entities']['urls'][0]['url'];
+
+            if (count($timeline['entities']['urls']) > 0) {
+                $twitter['url'] = $timeline['entities']['urls'][0]['url'];
+            } elseif (count($timeline['entities']['media']) > 0) {
+                $twitter['url'] = $timeline['entities']['media'][0]['url'];
+            }else{
+                $twitter['url'] = "";
+            }
+
             $twitter['text_created_at'] = Carbon::parse($timeline['created_at'])->format('Y-m-d H:i:s');
             $this->createSns($twitter, $this->sns_type_twitter);
         }
