@@ -8,6 +8,7 @@ use App\Models\Mentor;
 use Illuminate\Http\Request;
 use Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class LoginContoroller
@@ -19,35 +20,64 @@ class LoginController extends Controller
     /**
      * @return mixed
      */
-    public function auth()
+    public function auth(Request $request)
     {
-        return response()->success();
+        $auth['srl'] = $request->get('id');
+        $auth['user_type'] = strtolower($request->get('user_type'));
+        return \Response::success($auth);
     }
+
 
     /**
      * @param Request $request
-     * @return |null
+     * @return mixed
      * @throws MeteoException
      */
     public function login(Request $request)
     {
-        $user = null;
-
-        if ($request->is_mentor === true) {
-
-            $user = Mentor::where('id', $request->id)->first();
-            $user->setAttribute('srl', $user->mentor_srl);
-            $user->setAttribute('user_type', 'mentor');
-
+        if ($request->is_mentor === 'true') {
+            return $this->loginToMentor($request);
         } else {
-
-            $user = Mentee::where('id', $request->id)->first();
-            $user->setAttribute('srl', $user->mentee_srl);
-            $user->setAttribute('user_type', 'mentee');
+            return $this->loginToMentee($request);
         }
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @throws MeteoException
+     */
+    public function loginToMentee($request)
+    {
+        $user = Mentee::where('id', $request->id)->first();
 
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
+                $user->setAttribute('srl', $user->mentee_srl);
+                $user->setAttribute('user_type', 'mentee');
+                $user->setAttribute('token', JWTAuth::fromUser($user));
+                return $user;
+            } else {
+                throw new MeteoException(2);
+            }
+        } else {
+            throw new MeteoException(1);
+        }
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @throws MeteoException
+     */
+    public function loginToMentor($request)
+    {
+        $user = Mentor::where('id', $request->id)->first();
+
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+                $user->setAttribute('srl', $user->mentor_srl);
+                $user->setAttribute('user_type', 'mentor');
                 $user->setAttribute('token', JWTAuth::fromUser($user));
                 return $user;
             } else {
