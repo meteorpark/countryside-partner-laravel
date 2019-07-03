@@ -130,7 +130,7 @@ class Mentee extends Model implements JWTSubject
     {
         // TODO: Implement getJWTCustomClaims() method.
         return [
-            'user_type' => 'MENTEE',
+            'user_type' => 'mentee',
             'id' => $this->mentee_srl,
             'profile_image' => $this->profile_image,
         ];

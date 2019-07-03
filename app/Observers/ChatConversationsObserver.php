@@ -19,7 +19,7 @@ class ChatConversationsObserver
         $expFrom = explode("_", $chatConversations->from);
         $expTo = explode("_", $chatConversations->to);
 
-        if ($expFrom[0] === "MENTOR") {
+        if (strtolower($expFrom[0]) === "mentor") {
             Mentor::find($expFrom[1])->decrement('homi');
         } else {
             Mentee::find($expFrom[1])->decrement('homi');

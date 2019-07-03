@@ -36,7 +36,7 @@ class CustomGetUserToken extends BaseMiddleware
         }
 
         $request->merge([
-            'user_type' => $jwt->get('user_type'),
+            'user_type' => strtoupper($jwt->get('user_type')),
             'id' => $jwt->get('id'),
             'homi' => $userInfo->homi,
         ]);

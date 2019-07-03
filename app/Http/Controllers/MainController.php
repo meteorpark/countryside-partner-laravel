@@ -30,7 +30,8 @@ class MainController extends Controller
      */
     protected function bestDiaries()
     {
-        $diaries = MentorDiary::orderBy('view_count', 'DESC')
+        $diaries = MentorDiary::where('image', '!=', '')
+            ->inRandomOrder()
             ->orderBy('regdate', 'DESC')
             ->limit(3)
             ->get();

@@ -144,7 +144,7 @@ class Mentor extends Model implements JWTSubject
     {
 
         return [
-            'user_type' => 'MENTOR',
+            'user_type' => 'mentor',
             'id' => $this->mentor_srl,
             'profile_image' => $this->profile_image,
         ];

@@ -63,7 +63,7 @@ class ChatController extends Controller
      */
     protected function messagelists($chat_lists_id)
     {
-        $conversations = ChatConversations::where('chat_lists_id', $chat_lists_id)->orderBy('created_at', 'DESC')->paginate(15);
+        $conversations = ChatConversations::where('chat_lists_id', $chat_lists_id)->orderBy('created_at', 'DESC')->orderBy('id', 'DESC')->paginate(15);
 
         return $conversations;
     }
