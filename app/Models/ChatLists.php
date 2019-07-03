@@ -43,6 +43,22 @@ class ChatLists extends Model
         return $this->hasMany(ChatConversations::class);
     }
 
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getConstructorAttribute($value)
+    {
+        return strtolower($value);
+    }
 
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getParticipantsAttribute($value)
+    {
+        return strtolower($value);
+    }
 
 }
