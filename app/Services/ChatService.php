@@ -106,15 +106,15 @@ class ChatService
             $expConstructor = explode("_", $list->constructor);
             $expParticipant = explode("_", $list->participants);
 
-            if (strpos($list->constructor, "MENTOR") !== false) {
+            if (strpos($list->constructor, "mentor") !== false) {
                 $constructor = Mentor::find($expConstructor[1]);
-            } elseif (strpos($list->constructor, "MENTEE") !== false) {
+            } elseif (strpos($list->constructor, "mentee") !== false) {
                 $constructor = Mentee::find($expConstructor[1]);
             }
 
-            if (strpos($list->participants, "MENTOR") !== false) {
+            if (strpos($list->participants, "mentor") !== false) {
                 $participant = Mentor::find($expParticipant[1]);
-            } elseif (strpos($list->participants, "MENTEE") !== false) {
+            } elseif (strpos($list->participants, "mentee") !== false) {
                 $participant = Mentee::find($expParticipant[1]);
             }
             $list->setAttribute('constructor_image', $constructor ? $constructor->profile_image : "");
