@@ -8,7 +8,6 @@ use App\Models\Mentor;
 use Illuminate\Http\Request;
 use Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Class LoginContoroller
@@ -24,6 +23,22 @@ class LoginController extends Controller
     {
         $auth['srl'] = $request->get('id');
         $auth['user_type'] = strtolower($request->get('user_type'));
+        $auth['homi'] = 0;
+
+        if ($request->user_type === "MENTOR") {
+            $userInfo = Mentor::find($request->id);
+            if ($userInfo) {
+                $auth['homi'] = $userInfo->homi;
+            }
+        } else {
+            $userInfo = Mentee::find($request->id);
+            if ($userInfo) {
+                $auth['homi'] = $userInfo->homi;
+            }
+        }
+
+
+
         return \Response::success($auth);
     }
 

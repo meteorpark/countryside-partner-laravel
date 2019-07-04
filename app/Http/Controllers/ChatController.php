@@ -39,6 +39,18 @@ class ChatController extends Controller
     protected function store(StoreChatRequest $request)
     {
         $data = $request->all();
+        $data['homi'] = 0;
+        if ($data['user_type'] === "MENTOR") {
+            $userInfo = Mentor::find($data['id']);
+            if ($userInfo) {
+                $data['homi'] = $userInfo->homi;
+            }
+        } else {
+            $userInfo = Mentee::find($data['id']);
+            if ($userInfo) {
+                $data['homi'] = $userInfo->homi;
+            }
+        }
 
         if ($data['homi'] < 1) {
             throw new MeteoException(3);
