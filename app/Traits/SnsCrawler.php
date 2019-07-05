@@ -37,7 +37,7 @@ trait SnsCrawler
 
             if (count($timeline['entities']['urls']) > 0) {
                 $twitter['url'] = $timeline['entities']['urls'][0]['url'];
-            } elseif (count($timeline['entities']['media']) > 0) {
+            } elseif (!empty($timeline['entities']['media']) && count($timeline['entities']['media']) > 0) {
                 $twitter['url'] = $timeline['entities']['media'][0]['url'];
             }else{
                 $twitter['url'] = "";
