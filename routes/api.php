@@ -75,11 +75,10 @@ Route::group(['prefix' => 'openapi'], function () {
     Route::get('educationFarms', 'OpenApiController@educationFarms'); // 농촌교육농장
     Route::get('educationFarms/{cntntsNo}', 'OpenApiController@educationFarmsDetail'); // 농촌교육농장 상세
     Route::get('weekFarmInfo', 'OpenApiController@weekFarmInfo'); // 주간농사정보
-
-
     Route::get('sns', 'OpenApiController@sns'); // 농촌진흥청 트위터, 네이버블로그RSS
 //    Route::get('naverBlogRss', 'OpenApiController@naverBlogRss'); // 농촌진흥청 네이버블로그 RSS
 //    Route::get('twitter', 'OpenApiController@twitter'); // 농촌진흥청 트위터
+
 
 
 // 서비스 정지 됨.

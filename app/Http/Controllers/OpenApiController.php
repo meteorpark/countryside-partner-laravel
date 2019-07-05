@@ -320,6 +320,5 @@ class OpenApiController extends Controller
 
         $this->crawlerTwitter($timelines);
     }
-
 }
 
