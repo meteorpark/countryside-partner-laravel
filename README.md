@@ -4,7 +4,7 @@
 
 Web : https://countryside-partner.meteopark.dev
 
-Google Play :
+Google Play : https://play.google.com/store/apps/details?id=com.kr.countrysidepartner
 
 ## 서비스 개요
 본 서비스는 농업사회 발전을 이루기 위해 해당 분야의 전문가와 예비 귀농인을 이어주는 서비스 입니다
