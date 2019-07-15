@@ -100,7 +100,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::get('mentors', 'MentorController@index'); // 멘토 전체 조회
     Route::get('mentors/{mentor_srl}', 'MentorController@view'); // 멘토 프로필 조회
-    Route::get('diaries-mentors/{mentor_srl}/articles', 'MentorDiaryController@mentorDiaries'); // {NAME}멘토의 영농일지
+    Route::get('mentors/{mentor_srl}/diaries', 'MentorDiaryController@mentorDiaries'); // {NAME}멘토의 영농일지
     Route::get('diaries-mentors/articles/{diary_id}', 'MentorDiaryController@show');//  멘토 - 선택된 영농일지 조회
 
 
