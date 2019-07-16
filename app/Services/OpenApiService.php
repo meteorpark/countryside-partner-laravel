@@ -89,7 +89,7 @@ class OpenApiService
     {
         $queryParams = [
             'YEAR' => 2014,
-            'CTPRVN' => "경상남도",
+            'CTPRVN' => $ctprvn,
         ];
         if (!empty($fch_knd)) {
             $queryParams['FCH_KND'] = $fch_knd;

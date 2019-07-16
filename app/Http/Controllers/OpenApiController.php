@@ -60,7 +60,7 @@ class OpenApiController extends Controller
         }
 
         $url = $this->openApiService->getMachineUrl(
-            $data['CTPRVN'],
+            urldecode($data['CTPRVN']),
             $data['FCH_KND']
         );
         $response = $this->httpClient->get($url);
