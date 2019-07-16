@@ -41,10 +41,10 @@ class OpenApiController extends Controller
 
     /**
      * @param Request $request
-     * @return array
+     * @return object
      * @throws MeteoException
      */
-    protected function machines(Request $request) : array
+    protected function machines(Request $request) : object
     {
         $data = $request->all();
 
@@ -65,7 +65,9 @@ class OpenApiController extends Controller
         );
         $response = $this->httpClient->get($url);
 
-        return json_decode($response->getBody(), true);
+        $result = json_decode($response->getBody(), true);
+
+        return response()->json($result);
     }
 
 
