@@ -89,12 +89,12 @@ class OpenApiService
     {
         $queryParams = [
             'YEAR' => 2014,
-            'CTPRVN' => $ctprvn,
+            'CTPRVN' => "경상남도",
         ];
         if (!empty($fch_knd)) {
             $queryParams['FCH_KND'] = $fch_knd;
         }
-        $queryParams['FCH_KND'] = "경상남도";
+
         return (string)Uri\Uri::createFromString($this->api_call_url)
             ->withPath("/openapi/".$this->api_key.'/json/'.static::API_GRID_MACHINES.'/1/'.self::API_PAGE_LIMIT)
             ->withQuery(Uri\build_query($queryParams));
