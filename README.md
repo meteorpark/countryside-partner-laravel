@@ -18,18 +18,21 @@ Google Play : https://play.google.com/store/apps/details?id=com.kr.countrysidepa
 * 최신 농업소식을 구독할 수 있도록 외부데이터 활용 ( 농림축산식품부/농촌진흥청 OpenAPI, 트위터, 네이버블로그 Rss )
 
 ## 개발
+* Ncloud
+* ReactJs
 * PHP 7.2
 * Laravel 5.8
-* Nginx
+* Nginx 1.15.9
 * PHP-FPM
-* MySQL
+* MySQL 5.8
 * Let's Encrypt - Free SSL/TLS Certificates
 * Git
 
 ## 구현기술
-* Front-End
-    * https://github.com/meteopark/countryside-partner-reactjs
-* Back-End
+* [Front-End](https://github.com/meteopark/countryside-partner-reactjs)
+    * State Hook, Effect Hook, Redux, axios
+    * react-bootstrap
+* [Back-End](https://github.com/meteopark/countryside-partner-laravel)
     * JWT를 활용한 로그인 구현
     * 공식문서를 최대한 반영하도록 노력 ( Envoy, 마이그레이션, 시딩, 옵져버, 파일업로드 등... )
     * OpeAPI 활용 ( Twitter, 농업진흥청, 농촌진흥청 )
