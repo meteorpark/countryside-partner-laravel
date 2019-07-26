@@ -35,6 +35,7 @@ class ChatLists extends Model
     protected $hidden = ['created_at'];
 
 
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany|\Illuminate\Database\Query\Builder
      */
