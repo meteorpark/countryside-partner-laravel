@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\ChatConversations;
+use App\Models\ChatConversation;
 use App\Observers\ChatConversationsObserver;
 use Illuminate\Support\ServiceProvider;
 use Thujohn\Twitter\TwitterServiceProvider;
@@ -37,6 +37,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        ChatConversations::observe(ChatConversationsObserver::class); //  호미차감
+        ChatConversation::observe(ChatConversationsObserver::class); //  호미차감
     }
 }

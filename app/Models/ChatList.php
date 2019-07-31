@@ -12,18 +12,18 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $participants
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ChatConversations[] $chatLists
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatLists newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatLists newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatLists query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatLists whereConstructor($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatLists whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatLists whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatLists whereParticipants($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatLists whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ChatConversation[] $chatLists
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatList newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatList newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatList query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatList whereConstructor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatList whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatList whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatList whereParticipants($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatList whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class ChatLists extends Model
+class ChatList extends Model
 {
     /**
      * @var string
@@ -41,7 +41,7 @@ class ChatLists extends Model
      */
     public function lastMessage()
     {
-        return $this->hasMany(ChatConversations::class);
+        return $this->hasMany(ChatConversation::class);
     }
 
     /**

@@ -3,8 +3,8 @@
 
 namespace App\Services;
 
-use App\Models\ChatConversations;
-use App\Models\ChatLists;
+use App\Models\ChatConversation;
+use App\Models\ChatList;
 use App\Models\Mentee;
 use App\Models\Mentor;
 
@@ -15,20 +15,20 @@ use App\Models\Mentor;
 class ChatService
 {
     /**
-     * @var ChatLists|null
+     * @var ChatList|null
      */
     private $chatLists = null;
     /**
-     * @var ChatConversations|null
+     * @var ChatConversation|null
      */
     private $chatConversations = null;
 
     /**
      * ChatService constructor.
-     * @param ChatLists $chatLists
-     * @param ChatConversations $chatConversations
+     * @param ChatList $chatLists
+     * @param ChatConversation $chatConversations
      */
-    public function __construct(ChatLists $chatLists, ChatConversations $chatConversations)
+    public function __construct(ChatList $chatLists, ChatConversation $chatConversations)
     {
         $this->chatLists = $chatLists;
         $this->chatConversations = $chatConversations;
@@ -62,7 +62,7 @@ class ChatService
      */
     public function isChat(string $from, string $to)
     {
-        $chat = ChatLists::where('constructor', $from)->where('participants', $to)->first();
+        $chat = ChatList::where('constructor', $from)->where('participants', $to)->first();
 
         if (!$chat) {
             return false;
@@ -133,7 +133,7 @@ class ChatService
      */
     private function getChatLists($user)
     {
-        return ChatLists::orWhere('constructor', $user)->
+        return ChatList::orWhere('constructor', $user)->
                         orWhere('participants', $user)->
                         orderBy('updated_at', 'DESC')->
                         with(['lastMessage' => function ($query) {

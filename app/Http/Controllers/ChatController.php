@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\MeteoException;
 use App\Http\Requests\StoreChatRequest;
-use App\Models\ChatConversations;
-use App\Models\ChatLists;
+use App\Models\ChatConversation;
+use App\Models\ChatList;
 use App\Models\Mentee;
 use App\Models\Mentor;
 use App\Services\ChatService;
@@ -66,7 +66,7 @@ class ChatController extends Controller
      */
     protected function show($message_id)
     {
-        return ChatConversations::find($message_id);
+        return ChatConversation::find($message_id);
     }
 
     /**
@@ -75,7 +75,7 @@ class ChatController extends Controller
      */
     protected function messagelists($chat_lists_id)
     {
-        $conversations = ChatConversations::where('chat_lists_id', $chat_lists_id)->orderBy('created_at', 'DESC')->orderBy('id', 'DESC')->paginate(15);
+        $conversations = ChatConversation::where('chat_lists_id', $chat_lists_id)->orderBy('created_at', 'DESC')->orderBy('id', 'DESC')->paginate(15);
 
         return $conversations;
     }

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Config;
  * Class ChatConversations
  * @package App\Models
  */
-class ChatConversations extends Model
+class ChatConversation extends Model
 {
     /**
      * @var string
@@ -41,6 +41,6 @@ class ChatConversations extends Model
      */
     public function parentUpdatedAt()
     {
-        return $this->belongsTo(ChatLists::class, 'chat_lists_id');
+        return $this->belongsTo(ChatList::class, 'chat_lists_id');
     }
 }

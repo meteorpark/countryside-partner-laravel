@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\ChatConversations;
+use App\Models\ChatConversation;
 use App\Models\Mentee;
 use App\Models\Mentor;
 
@@ -11,10 +11,10 @@ class ChatConversationsObserver
     /**
      * Handle the chat conversations "created" event.
      *
-     * @param  \App\Models\ChatConversations  $chatConversations
+     * @param  \App\Models\ChatConversation  $chatConversations
      * @return void
      */
-    public function created(ChatConversations $chatConversations)
+    public function created(ChatConversation $chatConversations)
     {
         $expFrom = explode("_", $chatConversations->from);
         $expTo = explode("_", $chatConversations->to);
@@ -31,10 +31,10 @@ class ChatConversationsObserver
     /**
      * Handle the chat conversations "updated" event.
      *
-     * @param  \App\Models\ChatConversations  $chatConversations
+     * @param  \App\Models\ChatConversation  $chatConversations
      * @return void
      */
-    public function updated(ChatConversations $chatConversations)
+    public function updated(ChatConversation $chatConversations)
     {
         //
     }
@@ -42,10 +42,10 @@ class ChatConversationsObserver
     /**
      * Handle the chat conversations "deleted" event.
      *
-     * @param  \App\Models\ChatConversations  $chatConversations
+     * @param  \App\Models\ChatConversation  $chatConversations
      * @return void
      */
-    public function deleted(ChatConversations $chatConversations)
+    public function deleted(ChatConversation $chatConversations)
     {
         //
     }
@@ -53,10 +53,10 @@ class ChatConversationsObserver
     /**
      * Handle the chat conversations "restored" event.
      *
-     * @param  \App\Models\ChatConversations  $chatConversations
+     * @param  \App\Models\ChatConversation  $chatConversations
      * @return void
      */
-    public function restored(ChatConversations $chatConversations)
+    public function restored(ChatConversation $chatConversations)
     {
         //
     }
@@ -64,10 +64,10 @@ class ChatConversationsObserver
     /**
      * Handle the chat conversations "force deleted" event.
      *
-     * @param  \App\Models\ChatConversations  $chatConversations
+     * @param  \App\Models\ChatConversation  $chatConversations
      * @return void
      */
-    public function forceDeleted(ChatConversations $chatConversations)
+    public function forceDeleted(ChatConversation $chatConversations)
     {
         //
     }
